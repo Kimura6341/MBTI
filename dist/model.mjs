@@ -1,5 +1,7 @@
 // Original exploratory questionnaire. Not the NERIS or official MBTI instrument.
-export const VERSION = 'spectrum-1.0';
+import {ipipQuestions,scoreBigFive,bigFiveAxes,ipipSources} from './ipip.mjs';
+export {ipipQuestions,bigFiveAxes,ipipSources};
+export const VERSION = 'spectrum-2.0';
 export const axes = [
  {id:'energy',name:'能量来源',left:'外向',right:'内向',letters:['E','I'],color:'#4298b4',hint:'你更倾向于在交流中获得能量，还是通过独处恢复状态？'},
  {id:'mind',name:'信息偏好',left:'探索',right:'务实',letters:['N','S'],color:'#d5a54b',hint:'你更容易被新的可能吸引，还是先关注可验证的具体事实？'},
@@ -15,23 +17,33 @@ const bank = [
  ['一次小失误通常不会让我长时间怀疑自己。','面对不确定的结果，我大多能维持平常的生活节奏。','收到批评后，我通常能较快把注意力转向可做的改进。','当别人不同意我时，我仍能平静表达自己的判断。','完成力所能及的准备后，我比较容易停止担心。','与他人比较时，我通常仍能认可自己的进度。','事情结束后，我经常反复回想自己有没有做错。','即使准备充分，我也容易担心结果不够好。','他人随口的一句评价，有时会让我想很久。','计划突然变化时，我需要较长时间才能平静下来。','一个不理想的结果，容易影响我对自己的整体评价。','面对需要被评价的任务，我常会不断检查细节。']
 ];
 // Interleave dimensions and alternate positive / reverse keys across each page.
-export const questions = Array.from({length:60},(_,i)=>{
+export const originalQuestions = Array.from({length:60},(_,i)=>{
  const axis=i%5, round=Math.floor(i/5), item=round%2===0?round/2:6+Math.floor(round/2);
- return {id:'q'+(i+1),number:i+1,axis:axes[axis].id,text:bank[axis][item],direction:item<6?1:-1,weight:1};
+ return {id:'q'+(i+1),sourceNumber:i+1,axis:axes[axis].id,text:bank[axis][item],direction:item<6?1:-1,weight:1,source:'original'};
 });
+export const questions=Array.from({length:60},(_,i)=>[originalQuestions[i],...(ipipQuestions[i]?[ipipQuestions[i]]:[])]).flat().map((q,i)=>({...q,number:i+1}));
+export const TOTAL=questions.length,PAGE_SIZE=6,PAGES=Math.ceil(TOTAL/PAGE_SIZE);
 export const optionLabels=['强烈认同','比较认同','稍微认同','中立 / 不确定','稍微不认同','比较不认同','强烈不认同'];
 export const optionValues=[3,2,1,0,-1,-2,-3];
 export function score(answers){
- if(!answers||questions.some(q=>!Number.isInteger(answers[q.id])||Math.abs(answers[q.id])>3))throw new Error('请完成全部60题后查看结果。');
+ if(!answers||questions.some(q=>!Number.isInteger(answers[q.id])||Math.abs(answers[q.id])>3))throw new Error(`请完成全部${TOTAL}题后查看结果。`);
  const dimensions=axes.map(a=>{
-  const items=questions.filter(q=>q.axis===a.id);
+  const items=originalQuestions.filter(q=>q.axis===a.id);
   const sum=items.reduce((v,q)=>v+answers[q.id]*q.direction*q.weight,0);
   const maximum=items.reduce((v,q)=>v+3*q.weight,0);
   const left=Math.round(50+50*sum/maximum),right=100-left;
   return {...a,sum,maximum,leftPercent:left,rightPercent:right,letter:sum===0?'X':a.letters[sum>0?0:1],boundary:Math.abs(left-50)<=8};
  });
- return {version:VERSION,dimensions,code:dimensions.slice(0,4).map(d=>d.letter).join('')+'-'+dimensions[4].letter};
+ return {version:VERSION,dimensions,bigFive:scoreBigFive(answers),code:dimensions.slice(0,4).map(d=>d.letter).join('')+'-'+dimensions[4].letter};
 }
 export function validAnswers(raw){
  return Object.fromEntries(questions.filter(q=>Number.isInteger(raw?.[q.id])&&Math.abs(raw[q.id])<=3).map(q=>[q.id,raw[q.id]]));
+}
+export function restoreProgress(saved){
+ if(!saved||!['spectrum-1.0',VERSION].includes(saved.version))return {answers:{},page:0,view:'test',migrated:false};
+ const restored=validAnswers(saved.answers),complete=Object.keys(restored).length===TOTAL;
+ const migrated=saved.version!==VERSION;
+ const firstMissing=questions.findIndex(q=>!Number.isInteger(restored[q.id]));
+ const page=migrated?Math.floor(Math.max(0,firstMissing)/PAGE_SIZE):Math.max(0,Math.min(PAGES-1,Number.isInteger(saved.page)?saved.page:0));
+ return {answers:restored,page,view:saved.view==='result'&&complete?'result':'test',migrated};
 }
