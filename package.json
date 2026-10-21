@@ -1,0 +1,1 @@
+{"name":"persona-spectrum","private":true,"type":"module","scripts":{"test":"node --test tests/model.test.mjs","dev":"node preview.mjs"}}
