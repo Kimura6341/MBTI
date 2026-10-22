@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 const out=path.resolve('../../outputs/persona-lab');
 const strip=s=>s.replace(/^import .*?;\r?\n/gm,'').replace(/^export\s*\{[^}]*\};?\r?\n/gm,'').replace(/^export /gm,'');
-const [html,css,...scripts]=await Promise.all(['dist/index.html','dist/styles.css','dist/ipip.mjs','dist/model.mjs','dist/app.mjs'].map(p=>fs.readFile(p,'utf8')));
+const [html,css,...scripts]=await Promise.all(['dist/index.html','dist/styles.css','dist/ipip.mjs','dist/model.mjs','dist/report.mjs','dist/app.mjs'].map(p=>fs.readFile(p,'utf8')));
 const merged=html.replace('<link rel="stylesheet" href="./styles.css">',()=>'<style>'+css+'</style>').replace('<script type="module" src="./app.mjs"></script>',()=>'<script type="module">'+scripts.map(strip).join('\n')+'</script>');
 await fs.mkdir(out,{recursive:true});await fs.writeFile(out+'/人格光谱-双击打开.html',merged);
 console.log('Offline HTML ready: '+out+'/人格光谱-双击打开.html');
