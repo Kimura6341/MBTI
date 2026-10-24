@@ -9,7 +9,7 @@ await fs.mkdir(out+'/reports',{recursive:true});
 await fs.writeFile(out+'/index.html',merged);await fs.writeFile(out+'/人格光谱-双击打开.html',merged);
 const runtime=await fs.readFile('dist/report-runtime.mjs','utf8');
 for(const name of await fs.readdir('dist/reports'))if(name.endsWith('.html')){
- const report=(await fs.readFile('dist/reports/'+name,'utf8')).replace('<script type="module" src="../report-runtime.mjs"></script>',()=>'<script type="module">'+runtime+'</script>');
+ const report=(await fs.readFile('dist/reports/'+name,'utf8')).replace(/<script type="module" src="\.\.\/report-runtime\.mjs(?:\?[^"]*)?"><\/script>/,()=>'<script type="module">'+runtime+'</script>');
  await fs.writeFile(out+'/reports/'+name,report);
 }
 console.log('English offline site ready: '+out+'/人格光谱-双击打开.html');

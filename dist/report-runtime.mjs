@@ -1,9 +1,10 @@
 const sourceCode=document.body.dataset.personaType;
+const sourceVariant=document.body.dataset.personaVariant||'A';
 const labels=[['Energy','Extraverted','Introverted'],['Mind','Intuitive','Observant'],['Nature','Thinking','Feeling'],['Tactics','Judging','Prospecting'],['Identity','Assertive','Turbulent']];
 let result=null;
-try{if(location.hash.startsWith('#result=')){const candidate=JSON.parse(decodeURIComponent(location.hash.slice(8)));if(candidate.code===sourceCode&&['A','T'].includes(candidate.variant)&&candidate.dimensions?.length===5&&candidate.dimensions.every((d,i)=>Number.isFinite(d.pct)&&d.pct>=50&&d.pct<=100&&labels[i].slice(1).includes(d.trait)))result=candidate;}}catch{}
+try{if(location.hash.startsWith('#result=')){const candidate=JSON.parse(decodeURIComponent(location.hash.slice(8)));if(candidate.code===sourceCode&&candidate.variant===sourceVariant&&candidate.dimensions?.length===5&&candidate.dimensions.every((d,i)=>Number.isFinite(d.pct)&&d.pct>=50&&d.pct<=100&&labels[i].slice(1).includes(d.trait)))result=candidate;}}catch{}
 const note=document.createElement('div');note.className='persona-scoring';note.textContent=result?'Approximate scoring · Equal item weights; not the proprietary NERIS algorithm.':'Report preview · Saved example scores; take the test for your own results.';
-if(result?.variant==='T')note.textContent+=' The supplied full report is the -A edition; the chapters below are a reference for the four-letter type, not a verified -T report.';
+
 document.querySelector('[data-testid="typeheader"]')?.after(note);
 const tabs=[...document.querySelectorAll('.traitbox[role="tab"]')].slice(0,5);
 const descriptions=tabs.map(t=>{const el=t.querySelector('[id^="trait-desc-"]');return {image:el?.querySelector('img')?.cloneNode(true),text:el?.querySelector('p')?.textContent||''};});
@@ -16,11 +17,11 @@ function showTrait(index){
  if(label)label.textContent=labels[index][0];
  if(heading){const source=tab.querySelector('[id^="trait-desc-"] h4');if(source)heading.innerHTML=source.innerHTML.replace(/^.*?:\s*/,'');if(d)heading.textContent=`${d.pct}% ${d.trait}`;}
  const img=panel.querySelector('.desc__img');if(img&&descriptions[index].image){img.src=descriptions[index].image.src;img.alt=descriptions[index].image.alt;}
- const paragraph=[...panel.querySelectorAll('p')].find(p=>!p.classList.contains('desc__label'));if(paragraph)paragraph.textContent=index===4&&result?.variant==='T'?turbulent:descriptions[index].text;
+ const paragraph=[...panel.querySelectorAll('p')].find(p=>!p.classList.contains('desc__label'));if(paragraph)paragraph.textContent=descriptions[index].text;
 }
 if(result){
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;
- while((node=walker.nextNode()))if(node.textContent.trim()===sourceCode+'-A')node.textContent=node.textContent.replace(sourceCode+'-A',sourceCode+'-'+result.variant);
+ while((node=walker.nextNode()))if(node.textContent.trim()===sourceCode+'-'+sourceVariant)node.textContent=node.textContent.replace(sourceCode+'-'+sourceVariant,sourceCode+'-'+result.variant);
  const code=document.querySelector('[data-testid="typeheader"] .code');if(code)code.textContent=`${result.code}-${result.variant}`;
  tabs.forEach((tab,i)=>{
   const d=result.dimensions[i];tab.setAttribute('aria-label',`${d.label}: ${d.pct}% ${d.trait}`);
@@ -45,5 +46,5 @@ document.querySelectorAll('section[id]').forEach(section=>observer.observe(secti
 document.querySelector('#persona-email form').addEventListener('submit',event=>{
  event.preventDefault();const email=document.querySelector('#persona-email input').value;
  try{localStorage.setItem('persona-report-email',email);}catch{}
- const clone=document.documentElement.cloneNode(true);clone.querySelectorAll('script').forEach(s=>s.remove());const blob=new Blob(['<!doctype html>'+clone.outerHTML],{type:'text/html'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${sourceCode}-${result?.variant||'A'}-report.html`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);document.querySelector('#persona-email').close();
+ const clone=document.documentElement.cloneNode(true);clone.querySelectorAll('script').forEach(s=>s.remove());const blob=new Blob(['<!doctype html>'+clone.outerHTML],{type:'text/html'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${sourceCode}-${result?.variant||sourceVariant}-report.html`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);document.querySelector('#persona-email').close();
 });
