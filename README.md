@@ -4,6 +4,10 @@ A buildless Chinese personality exploration site with 110 questions, sixteen typ
 
 ## Run locally
 
+Live website: https://kimura6341.github.io/MBTI/
+
+GitHub Pages publishes `dist/` through `.github/workflows/pages.yml` after checks pass on pushes to `main`. It can also be run manually from the Actions tab.
+
 Requires Node.js 22 or later. No npm installation is needed.
 
 ```sh
