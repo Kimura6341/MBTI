@@ -27,6 +27,10 @@ The default offline output is `../../outputs/persona-lab/`. To choose another fo
 
 ## Edit report content and images
 
+The homepage is a separate landing view modeled on the owner-authorized reference homepage, with desktop/mobile camping illustrations. `dist/home.mjs` and `dist/home.css` own its structure and layout. It uses this questionnaire's real counts rather than copying the reference site's traffic or accuracy statistics. The test remains available at `#test`; report samples and type previews stay separate from personal answers.
+
+Homepage SVG sources are documented in `dist/assets/home/sources.json`. Run `python build-home-assets.py` after replacing those assets.
+
 - `content/type-copy.md`: the user-maintained sixteen-type introduction text.
 - `python sync-type-copy.py`: imports that text into `dist/user-type-copy.mjs`.
 - `dist/assets/personality/`: the 32 source SVGs and their source manifest.

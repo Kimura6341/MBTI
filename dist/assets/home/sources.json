@@ -1,0 +1,8 @@
+{
+  "reference": "https://www.16personalities.com/tw",
+  "assets": {
+    "hero-desktop.svg": "https://www.16personalities.com/static/images/homepage/home-page-hero-illustration.svg",
+    "hero-mobile.svg": "https://www.16personalities.com/static/images/homepage/home-page-hero-illustration-phone.svg",
+    "logo.svg": "https://www.16personalities.com/static/images/system/logo.svg"
+  }
+}

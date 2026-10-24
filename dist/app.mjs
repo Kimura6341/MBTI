@@ -1,9 +1,17 @@
+import {homeHeader,homeMarkup,homeFooter} from './home.mjs';
+import {typeImages} from './type-images.mjs';
+import {userTypeCopy} from './user-type-copy.mjs';
 import {referenceMarkup,referenceDemoAnswers,referenceChapters} from './reference-report.mjs';
 import {profiles,buildReport,reportScene,narrativeText} from './report.mjs';
 import {VERSION,axes,questions,originalQuestions,bigFiveAxes,ipipSources,TOTAL,PAGES,PAGE_SIZE,optionLabels,optionValues,score,restoreProgress} from './model.mjs';
 const key='persona-spectrum-v1';
 const root=document.querySelector('#app');
 const dialog=document.querySelector('#info-dialog');
+const originalHeader=document.querySelector('.header').innerHTML,originalFooter=document.querySelector('body>footer').innerHTML;
+let homeActive=!['#test','#reference-preview'].includes(location.hash);
+function pageChrome(isHome){document.body.classList.toggle('page-home',isHome);document.querySelector('.header').innerHTML=isHome?homeHeader():originalHeader;document.querySelector('body>footer').innerHTML=isHome?homeFooter():originalFooter;}
+function renderHome(){homeActive=true;reportObserver?.disconnect();pageChrome(true);root.innerHTML=homeMarkup();}
+
 let demoCode=null,demoStress='A',reportObserver=null;
 let answers={},page=0,view='test',canStore=true,restored=false,migrated=false;
 try{const state=restoreProgress(JSON.parse(localStorage.getItem(key)||'null'));({answers,page,view,migrated}=state);restored=Object.keys(answers).length>0;}catch{canStore=false;}
@@ -14,6 +22,7 @@ const icon=name=>`<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" str
 function hero(){return `<section class="hero"><span class="hero-shape shape-one"></span><span class="hero-shape shape-two"></span><p class="eyebrow">A LITTLE CURIOSITY. A DEEPER UNDERSTANDING.</p><h1>认识自己，从真实的回答开始。</h1><p class="intro">没有标准答案，也不需要成为任何人。<br><strong>跟随直觉，探索属于你的性格光谱。</strong></p><button class="text-button" data-action="demo">先看看完整报告示例 ↗</button><div class="hero-meta"><span><b>◷</b> 约 15–20 分钟</span><span><b>◇</b> 110 题 · 双题库</span><span><b>⌁</b> 性格倾向 + 大五人格</span></div></section><section class="tips" aria-label="答题提示"><div class="tip">${icon('clock')}<div><strong>不必过度思考</strong><span class="tip-detail">选择平时的你，而不是理想中的你。</span></div></div><div class="tip">${icon('heart')}<div><strong>诚实面对自己</strong><span class="tip-detail">没有好坏之分，每种倾向都有价值。</span></div></div><div class="tip">${icon('leaf')}<div><strong>为变化留出空间</strong><span class="tip-detail">结果是一次观察，不是永远的标签。</span></div></div></section>`;}
 function renderQuestion(q){return `<fieldset class="question ${Number.isInteger(answers[q.id])?'answered':''}" id="${q.id}"><legend id="${q.id}-label"><small>${String(q.number).padStart(2,'0')} / ${TOTAL}</small>${q.text}</legend><div class="choices"><span class="scale-end" aria-hidden="true">认同</span>${optionValues.map((value,i)=>`<label class="choice" style="--size:${[50,42,33,25,33,42,50][i]}px;--tone:${i<3?'#54a88f':i===3?'#a9a4ac':'#8863a3'}" title="${optionLabels[i]}"><input type="radio" name="${q.id}" value="${value}" aria-label="${optionLabels[i]}" ${answers[q.id]===value?'checked':''}><span aria-hidden="true"></span></label>`).join('')}<span class="scale-end" aria-hidden="true">不认同</span></div><div class="scale-mobile" aria-hidden="true"><span>认同</span><span>不认同</span></div></fieldset>`;}
 function renderTest(){
+ homeActive=false;pageChrome(false);
  reportObserver?.disconnect();
  root.innerHTML=hero()+`${restored?`<div class="resume"><span>${migrated?'已保留旧版答案，新题待补充':'已恢复本机进度'} · 已答 ${count()} / ${TOTAL} 题</span><button class="text-button" data-action="reset">重新开始</button></div>`:''}<section class="test-wrap" id="test" aria-label="人格探索测试"><div class="progress-area"><div class="progress-head"><strong>第 ${page+1} / ${PAGES} 组</strong><span id="count-label">已完成 ${count()} / ${TOTAL} 题 · ${Math.round(count()/TOTAL*100)}%</span></div><div class="progress-track" role="progressbar" aria-label="答题进度" aria-valuemin="0" aria-valuemax="${TOTAL}" aria-valuenow="${count()}"><div class="progress-fill" style="width:${count()/TOTAL*100}%"></div></div></div><form id="quiz-form" novalidate>${questions.slice(page*PAGE_SIZE,page*PAGE_SIZE+PAGE_SIZE).map(renderQuestion).join('')}<div class="page-actions">${page>0?'<button type="button" class="secondary" data-action="previous">← 上一组</button>':''}<button class="primary" type="submit">${page===PAGES-1?'查看我的结果':'下一组'}<span aria-hidden="true">→</span></button></div><div class="error" id="form-error" role="alert"></div></form><p class="page-note">${canStore?'进度仅保存在当前浏览器。110题较长，可以随时暂停、回来继续。':'浏览器存储不可用；关闭或刷新页面会丢失本次作答。'}<br>独立自我探索原型，非 16Personalities 或官方 MBTI 测评。<button class="text-button" data-action="method">了解评分方式</button></p></section>`;
  document.querySelector('#quiz-form').addEventListener('change',e=>{
@@ -39,6 +48,7 @@ const contribution=(q,value)=>q.source==='ipip50'?(q.direction===1?value+4:4-val
 function bigFivePanel(result){return `<section class="bigfive-section"><div class="report-heading"><div><p class="eyebrow">ANOTHER PERSPECTIVE · IPIP-50</p><h2>你的大五人格画像</h2></div><span class="bank-tag">新增 50 题 · 独立计分</span></div><p class="bank-intro">从外向性、宜人性、尽责性、情绪稳定性及智性 / 想象力观察自己。这里的百分数表示得分在量程中的位置，不是你超过了多少人，也不表示能力高低。</p><div class="bigfive-grid">${result.bigFive.map(d=>`<article class="bigfive-card" style="--color:${d.color};--percent:${d.percent}%"><h3>${d.name}<strong>${d.mean.toFixed(1)}<small> / 7</small></strong></h3><div class="dimension-bar" role="img" aria-label="${d.name}，均分${d.mean.toFixed(1)}/7，量程位置${d.percent}%"><span></span></div><div class="range-labels"><span>较少符合</span><span>较多符合</span></div><p>${d.hint}</p></article>`).join('')}</div><p class="formula-note">来源：IPIP Big-Five Factor Markers 50题。采用自译中文和七档作答；原题方向保留，本中文组合版本尚未验证。${result.bigFive[0].mean===4?'中点得分也可能来自不同答案的抵消，不能据此认定人格均衡。':''}</p></section>`;}
 function currentResult(){return demoCode?score(referenceDemoAnswers(demoCode,demoStress)):score(answers);}
 function renderResult(){
+ dialog.close();homeActive=false;pageChrome(false);
  const result=currentResult();reportObserver?.disconnect();
  root.innerHTML=referenceMarkup(result,{demo:Boolean(demoCode),base:result.code.split('-')[0],stress:demoStress,profiles});
  document.querySelector('#demo-type')?.addEventListener('change',e=>{demoCode=e.target.value;renderResult();});
@@ -49,7 +59,7 @@ function renderResult(){
  if('IntersectionObserver' in window){reportObserver=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];if(!visible)return;const chapter=visible.target.id.replace('nr-','');document.querySelector('#nr-chapter-select').value=chapter;document.querySelectorAll('[data-nr-nav]').forEach(a=>{if(a.dataset.nrNav===chapter)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});},{rootMargin:'-90px 0px -55% 0px',threshold:0});referenceChapters.forEach(([id])=>reportObserver.observe(document.querySelector('#nr-'+id)));}
 }
 
-function render(){view==='result'?renderResult():renderTest();}
+function render(){if(homeActive&&!demoCode)renderHome();else view==='result'?renderResult():renderTest();}
 function openInfo(title,body){document.querySelector('#dialog-title').textContent=title;document.querySelector('#dialog-body').innerHTML=body;if(!dialog.open)dialog.showModal();}
 function method(){openInfo('题库来源与独立计分',`<p>本版共 ${TOTAL} 题：60 道原创性格探索题，加上完整的 50 道 IPIP Big-Five Factor Markers。两类题穿插出现，但分别计分。不是16Personalities原题或原站算法。</p><h3>为什么没有把分数直接混在一起？</h3><p>大五人格中的宜人性不等于“情感型”，智性 / 想象力也不等于“直觉型”。IPIP 50题不改变原创题生成的类型代码，而是提供第二份独立画像。</p><h3>原创60题</h3><p>各维12题，正反各6题，每题权重1。七档选择按 +3 至 −3 记录。</p><code>S = Σ（答案值 × 正反方向）<br>左侧百分比 = round(50 + 50 × S / 36)<br>右侧百分比 = 100 − 左侧百分比</code><p>得分相同时显示X。距中点不超过8个百分点的提示是产品约定，不是统计置信度。</p><h3>IPIP 50题：公开题库，中文七档改编</h3><p>官方IPIP材料处于公有领域，允许商业使用、翻译和与其他题目混排。这里保留全部50题与官方正反向计分键，中文为本项目自译，不是已验证的标准中文版。原示例常用五档，本版统一为七档，不能直接套用五档研究中的原始分常模。</p><code>x = 答案值 + 4（1至7）<br>正向题得分 = x；反向题得分 = 8 − x<br>每维10题，原始总分10至70；均分 = 总分 / 10<br>展示量程位置 = round((总分 − 10) ÷ 60 × 100)</code><p>IPIP五维分别为外向性、宜人性、尽责性、情绪稳定性与智性 / 想象力。原始题库方向是情绪稳定性，未误标为神经质。展示值不是人口百分位或能力测验。</p><p><a href="${ipipSources.items}" target="_blank" rel="noopener">官方50题示例 ↗</a>　<a href="${ipipSources.key}" target="_blank" rel="noopener">官方计分键 ↗</a>　<a href="${ipipSources.permission}" target="_blank" rel="noopener">商业使用许可 ↗</a></p><h3>还有哪些题库？</h3><p>IPIP还包含Mini-IPIP等短版、IPIP-NEO等长版及更多具体特质题库，应按构念与用途选择，避免重复计数。HEXACO-PI-R是另一套六因素量表，其官方非学术使用需要联系作者，未加入本商业原型。</p><h3>逐题来源与计分键</h3>${[{title:'原创性格题',list:axes,source:'original'},{title:'IPIP大五题',list:bigFiveAxes,source:'ipip50'}].map(bank=>bank.list.map(a=>`<details><summary>${bank.title} · ${a.name}</summary><p>${a.hint}</p><ol>${questions.filter(q=>q.source===bank.source&&q.axis===a.id).map(q=>`<li>第 ${q.number} 题：${q.text}${q.english?`<br><small lang="en">${q.english}</small>`:''}<br><small>题库内编号 ${q.sourceNumber} · ${q.direction>0?'正向':'反向'} · 权重1</small></li>`).join('')}</ol></details>`).join('')).join('')}<p>本组合问卷与中文译文尚未完成信度、效度或本地常模验证。题目更多不自动代表更准确。</p>`);}
 function toast(message){const el=document.querySelector('#toast');el.textContent=message;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3500);}
@@ -81,10 +91,20 @@ function requestReportEmail(){
  });
 }
 document.addEventListener('click',async e=>{
- if(e.target.closest('a[href="#test"]')&&(demoCode||view==='result')){e.preventDefault();demoCode=null;view='test';persist();renderTest();document.querySelector('#test').scrollIntoView({behavior:'smooth'});return;}
+ if(e.target.closest('a[href="#test"]')&&(homeActive||demoCode||view==='result')){e.preventDefault();demoCode=null;view='test';persist();renderTest();document.querySelector('#test').scrollIntoView({behavior:'smooth'});return;}
  const action=e.target.closest('[data-action]')?.dataset.action;if(!action)return;
+ if(action==='start-test'){dialog.close();demoCode=null;homeActive=false;view='test';persist();history.replaceState(null,'','#test');renderTest();window.scrollTo({top:0,behavior:'smooth'});}
+ if(action==='home-services'){const button=e.target.closest('[data-action]'),menu=document.querySelector('.home-service-menu');menu.hidden=!menu.hidden;button.setAttribute('aria-expanded',String(!menu.hidden));}
+ if(action==='home-mobile-menu'){const nav=document.querySelector('.home-nav'),button=e.target.closest('[data-action]');nav.classList.toggle('is-open');button.setAttribute('aria-expanded',String(nav.classList.contains('is-open')));}
+ if(action==='personality-types'){openInfo('16 種人格類型',`<div class="home-type-grid">${Object.entries(userTypeCopy).map(([code,copy])=>`<button data-action="type-preview" data-type="${code}"><img src="${typeImages[code].avatar.src}" alt="" loading="lazy"><strong>${code}</strong>${copy.name}</button>`).join('')}</div>`);}
+ if(action==='type-preview'){demoCode=e.target.closest('[data-type]').dataset.type;demoStress='A';dialog.close();renderResult();window.scrollTo({top:0,behavior:'smooth'});}
+ if(['career-preview','growth-preview','relations-preview'].includes(action)){demoCode='INTP';demoStress='A';renderResult();document.querySelector('#nr-'+({'career-preview':'work','growth-preview':'growth','relations-preview':'relations'}[action])).scrollIntoView({behavior:'smooth',block:'start'});}
+ if(action==='my-report'){if(count()===TOTAL){demoCode=null;view='result';persist();renderResult();window.scrollTo({top:0,behavior:'smooth'});}else openInfo('你的測試進度',`<p>${count()?`你已完成 ${count()} / ${TOTAL} 題，可以繼續上次的進度。`:'完成測試後，就能在這裡查看你的人格報告。'}</p><button class="primary" data-action="start-test">${count()?'繼續測試':'開始測試'}</button>`);}
+ if(action==='language')openInfo('語言設定','<p>首頁採用繁體中文，題目和報告沿用目前的中文版本。</p>');
+ if(action==='home-reading')openInfo('閱讀與探索','<p>從自己的真實經歷出發，了解不同的性格傾向。</p><div class="home-reading-links"><button class="text-button" data-action="personality-types">探索 16 種人格類型 →</button><button class="text-button" data-action="career-preview">閱讀職業道路報告 →</button><button class="text-button" data-action="growth-preview">閱讀個人成長報告 →</button></div>');
+
  if(action==='demo'){demoCode='INTP';demoStress='A';renderResult();window.scrollTo({top:0,behavior:'smooth'});}
- if(action==='exit-demo'){demoCode=null;render();window.scrollTo({top:0,behavior:'smooth'});}
+ if(action==='exit-demo'){demoCode=null;homeActive=true;render();window.scrollTo({top:0,behavior:'smooth'});}
  if(action==='close-dialog')dialog.close();
  if(action==='method')method();
  if(action==='privacy')openInfo('数据只留在你的浏览器',`<p>你的答题记录通过当前浏览器的本地存储保存，不会由本应用上传到服务器。不设置账户，也没有第三方分析脚本。下载报告时填写的邮箱与报告类型仅保存在当前浏览器，不会上传或发送邮件。</p><p>同一设备、同一浏览器中的其他使用者可能看到已保存的进度。你可以随时通过「清除本机答题记录」删除本应用保存的答案。</p><p>浏览器隐私模式或存储限制可能导致进度无法保存。站点托管服务仍可能处理常规访问日志；本应用不将答案放入网址。</p><button class="secondary" data-action="reset">清除本机答题记录</button>`);
