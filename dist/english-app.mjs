@@ -1,7 +1,5 @@
 import {englishQuestions,calculateEnglish} from './english-model.mjs?v=f351344ebc7f';
-import {englishTypes} from './english-types.mjs';
-import {englishHomeMarkup,bindEnglishHome} from './english-home.mjs?v=f18b954d81d9';
-import {typeImages} from './type-images.mjs';
+import {englishHomeMarkup,bindEnglishHome} from './english-home.mjs?v=953f1bf2f421';
 const root=document.querySelector('#app'),key='persona-spectrum-english-60-v2';
 let answers={},page=0;
 try{let saved=JSON.parse(localStorage.getItem(key));if(!saved){const previous=JSON.parse(localStorage.getItem('persona-spectrum-english-60-v1'));if(previous){saved={...previous,answers:Object.fromEntries(Object.entries(previous.answers||{}).map(([id,value])=>[id,-value]))};localStorage.setItem(key,JSON.stringify(saved));}}if(saved){answers=Object.fromEntries(englishQuestions.filter(q=>Number.isInteger(saved.answers?.[q.id])&&Math.abs(saved.answers[q.id])<=3).map(q=>[q.id,saved.answers[q.id]]));page=Math.min(9,Math.max(0,Number.isInteger(saved.page)?saved.page:0));}}catch{}
@@ -9,8 +7,7 @@ const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 const save=()=>{try{localStorage.setItem(key,JSON.stringify({answers,page}));}catch{}};
 function home(){
  document.body.classList.add('homepage-active');document.querySelector('#home-reference-style').media='all';
- const cards=Object.entries(englishTypes).map(([code,t])=>`<article class="type-card"><a href="./reports/${code}-A.html"><img src="${typeImages[code].avatar.src}" alt="${escape(t.name)}" loading="lazy"><strong>${escape(t.name)}</strong><span>${code}</span></a><div class="variant-links"><a href="./reports/${code}-A.html">Assertive · A</a><a href="./reports/${code}-T.html">Turbulent · T</a></div></article>`).join('');
- root.innerHTML=englishHomeMarkup(cards);bindEnglishHome(root);
+ root.innerHTML=englishHomeMarkup('');bindEnglishHome(root);
 }
 
 function quiz(){

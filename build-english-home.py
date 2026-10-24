@@ -17,13 +17,13 @@ markup=re.sub(r'<el-badge\b([^>]*)>(.*?)</el-badge>',lambda m:'<span class="pers
 def button(match):
  label=re.search(r'text="([^"]+)"',match[1]).group(1)
  if label=='Take the test':return '' # The server-rendered fallback already supplies this button.
- return '<a class="persona-home-button" href="#personality-types">'+('Explore personality types' if 'framework' in label else 'Explore the reports')+' <span aria-hidden="true">→</span></a>'
+ return '<a class="persona-home-button" href="#test">'+'Take the test'+' <span aria-hidden="true">→</span></a>'
 markup=re.sub(r'<el-button\b([^>]*)>.*?</el-button>',button,markup,flags=re.S)
 markup=markup.replace('Understand your team better with our Team Assessments. Improve communication, create harmony, and help team members develop their individual strengths. Works for teams of all sizes.','Discover how different personalities approach communication, decisions, and collaboration. Explore the reports together to understand each other’s preferences, strengths, and working styles.')
 markup=markup.replace('Curious how accurate we are about you?','Ready to discover your personality type?')
 replacements={
  'https://www.16personalities.com/free-personality-test':'#test',
- 'https://www.16personalities.com/personality-types':'#personality-types',
+ 'https://www.16personalities.com/personality-types':'#test',
  'https://www.16personalities.com/static/images/homepage/home-page-hero-illustration.svg':'__HERO_DESKTOP__',
  'https://www.16personalities.com/static/images/homepage/home-page-hero-illustration-phone.svg':'__HERO_MOBILE__',
  'https://www.16personalities.com/static/images/teams/communication.svg?v=1':'__COMMUNICATION__',
@@ -32,7 +32,7 @@ replacements={
  'https://www.16personalities.com/static/images/homepage/home-page-footer-illustration-phone.svg':'__FOOTER_MOBILE__',
 }
 for old,new in replacements.items():markup=markup.replace(old,new)
-carousel='''<section id="personality-types" class="persona-type-section"><div class="persona-type-shape"></div><div class="sp-wrap"><span class="persona-home-badge">Personality types</span><h2>Find a little more of yourself.</h2><p>Explore all 16 types, with full Assertive and Turbulent reports.</p><div class="persona-type-carousel" aria-label="Personality type reports">__TYPE_CARDS__</div><div class="persona-carousel-controls"><button type="button" data-carousel="previous" aria-label="Previous personality types">←</button><button type="button" data-carousel="next" aria-label="Next personality types">→</button></div></div></section>'''
+carousel=''
 markup=re.sub(r'<section id="testimonials".*?</section>',carousel,markup,flags=re.S)
 assert 'Benny' not in markup and '91.2%' not in markup
 print('Remaining original URLs:',re.findall(r'https://www\.16personalities\.com/[^\s\"<>]+',markup))
