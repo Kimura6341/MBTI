@@ -1,0 +1,219 @@
+{
+  "personality": {
+    "title": "Assertive Protagonist",
+    "isSelf": false,
+    "locale": "en",
+    "details": {
+      "description": "Review his personality test results and learn more about his personality type and core traits.",
+      "cards": {
+        "personality": {
+          "key": "protagonist",
+          "animationSrc": "https://www.16personalities.com/static/animations/avatars/all/protagonist-male.json",
+          "imageSrc": "https://www.16personalities.com/static/images/personality-types/avatars/enfj-protagonist-male.svg?v=3",
+          "imageAlt": "ENFJ (Protagonist) personality type illustrated as a full-body figure of a man with dark hair and beard wearing green clothing and holding a sword.",
+          "snippetHtml": "Protagonists are inspiring optimists, readily taking action to do what they feel is right. These warm, forthright types love helping others and have the creative energy to achieve their goals.",
+          "groupSnippetHtml": "Protagonists like you belong to the <a class=\"link--inline\" href=\"https://www.16personalities.com/articles/roles-diplomats\">Diplomat</a> Role group and embrace the <a class=\"link--inline\" href=\"https://www.16personalities.com/articles/strategies-people-mastery\">People Mastery</a> Strategy.",
+          "color": "green",
+          "link": "https://www.16personalities.com/enfj-personality",
+          "title": "His Personality",
+          "subtitleHtml": "<span class=\"type__full prevent--drag\">Protagonist <span class=\"type__code\">(ENFJ-A)</span></span>"
+        },
+        "role": {
+          "key": "diplomat",
+          "animationSrc": "https://www.16personalities.com/static/animations/profile/roles/diplomats.json?v=1",
+          "imageSrc": "https://www.16personalities.com/static/images/profile/badges/role-diplomat.svg",
+          "imageAlt": "Badge for Diplomat role.",
+          "snippetHtml": "Diplomats focus on empathy and cooperation, shining in diplomacy and counselling. They’re imaginative, warm, empathic, and influential people, often playing the role of harmonizers.",
+          "color": "green",
+          "link": "https://www.16personalities.com/articles/roles-diplomats",
+          "title": "His Role",
+          "subtitleHtml": "<span class=\"prevent--drag\">Diplomats</span>"
+        },
+        "strategy": {
+          "key": "people-mastery",
+          "animationSrc": "https://www.16personalities.com/static/animations/profile/strategies/people-mastery-diplomats.json?v=1",
+          "imageSrc": "https://www.16personalities.com/static/images/profile/badges/strategy-people-mastery-diplomat.svg",
+          "imageAlt": "Badge for People Mastery strategy.",
+          "snippetHtml": "Individuals who prefer the People Mastery Strategy seek social contact and have very good communication skills, feeling at ease in social events or directing others. They’re confident and readily express their opinions.",
+          "color": "green",
+          "link": "https://www.16personalities.com/articles/strategies-people-mastery",
+          "title": "His Strategy",
+          "subtitleHtml": "<span class=\"prevent--drag\">People Mastery</span>"
+        }
+      },
+      "traits": [
+        {
+          "key": "extraverted",
+          "label": "Energy",
+          "color": "blue",
+          "score": 0,
+          "pct": 50,
+          "trait": "Extraverted",
+          "link": "https://www.16personalities.com/articles/energy-introverted-vs-extraverted",
+          "reverse": true,
+          "reversed": false,
+          "titles": [
+            "Extraverted",
+            "Introverted"
+          ],
+          "description": "Extraverted individuals readily enjoy group activities and value social interaction. They tend to be outwardly enthusiastic and express their excitement.",
+          "snippet": "Likely gets energized by social interaction and tends to openly express their enthusiasm and excitement.",
+          "imageAlt": "A scene showing a group of friends sitting and chatting around a table.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_extraverted.svg"
+        },
+        {
+          "key": "intuitive",
+          "label": "Mind",
+          "color": "yellow",
+          "score": 0,
+          "pct": 50,
+          "trait": "Intuitive",
+          "link": "https://www.16personalities.com/articles/mind-intuitive-vs-observant",
+          "reverse": true,
+          "reversed": false,
+          "titles": [
+            "Intuitive",
+            "Observant"
+          ],
+          "description": "Intuitive individuals are very imaginative, open-minded, and curious. They value originality and focus on hidden meanings and distant possibilities.",
+          "snippet": "Likely very imaginative and open-minded, focusing on hidden meanings and distant possibilities.",
+          "imageAlt": "A scene showing two researchers discussing a flying car.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_intuitive.svg"
+        },
+        {
+          "key": "feeling",
+          "label": "Nature",
+          "color": "green",
+          "score": 0,
+          "pct": 50,
+          "trait": "Feeling",
+          "link": "https://www.16personalities.com/articles/nature-thinking-vs-feeling",
+          "reverse": false,
+          "reversed": true,
+          "titles": [
+            "Thinking",
+            "Feeling"
+          ],
+          "description": "Feeling individuals value emotional expression and sensitivity. They place a lot of importance on empathy, social harmony, and cooperation.",
+          "snippet": "Likely values emotional expression and sensitivity, prioritizing empathy, social harmony, and cooperation.",
+          "imageAlt": "A scene showing two friends, one of whom is sad and is being consoled by another.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_feeling.svg"
+        },
+        {
+          "key": "judging",
+          "label": "Tactics",
+          "color": "purple",
+          "score": 0,
+          "pct": 50,
+          "trait": "Judging",
+          "link": "https://www.16personalities.com/articles/tactics-judging-vs-prospecting",
+          "reverse": true,
+          "reversed": false,
+          "titles": [
+            "Judging",
+            "Prospecting"
+          ],
+          "description": "Judging individuals are decisive, thorough, and highly organized. They value clarity, predictability, and closure, preferring structure and planning to spontaneity.",
+          "snippet": "Likely decisive, thorough, and highly organized. Values clarity and prefers planning to spontaneity.",
+          "imageAlt": "A scene showing a couple going around the store with a shopping list.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_judging.svg"
+        },
+        {
+          "key": "assertive",
+          "label": "Identity",
+          "color": "red",
+          "score": 33,
+          "pct": 67,
+          "trait": "Assertive",
+          "link": "https://www.16personalities.com/articles/identity-assertive-vs-turbulent",
+          "reverse": true,
+          "reversed": false,
+          "titles": [
+            "Assertive",
+            "Turbulent"
+          ],
+          "description": "Assertive individuals are self-assured, even-tempered, and resistant to stress. They refuse to worry too much and tend to be self-confident when striving to achieve goals.",
+          "snippet": "Likely self-assured, even-tempered, and resistant to stress, refusing to worry too much.",
+          "imageAlt": "A scene showing a relaxed office worker paying no attention to their manager who is walking up to them.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_assertive.svg"
+        }
+      ],
+      "traitsTitle": "His Traits",
+      "lastTestAt": null,
+      "factsheetUrl": "https://www.16personalities.com/static/factsheets/Protagonist (Assertive) (Male).pdf",
+      "typeCode": "ENFJ",
+      "contentType": "description",
+      "contentId": 50,
+      "socialMediaTitle": "ENFJ Personality (Protagonist)",
+      "pageShares": "298K",
+      "pageShareUrl": "https://www.16personalities.com/enfj-personality"
+    },
+    "personality": "Assertive Protagonist",
+    "personalityShort": "Protagonist",
+    "personalityLink": "https://www.16personalities.com/enfj-personality",
+    "personalityCode": "ENFJ-A",
+    "typeCode": "ENFJ",
+    "typeArticle": "a",
+    "fullCodeHtml": "<span class=\"type__code\">(ENFJ-A)</span>",
+    "personalityNice": "Assertive Protagonist (ENFJ-A)",
+    "personalityNiceShort": "Protagonist (ENFJ-A)",
+    "score1": "50% Extraverted",
+    "score2": "50% Intuitive",
+    "score3": "50% Feeling",
+    "score4": "50% Judging",
+    "score5": "67% Assertive",
+    "variant": "assertive",
+    "scores": [
+      0,
+      0,
+      0,
+      0,
+      33
+    ],
+    "traitPcts": [
+      50,
+      50,
+      50,
+      50,
+      67
+    ],
+    "traitPctString": "50% Extraverted, 50% Intuitive, 50% Feeling, 50% Judging, 67% Assertive",
+    "strategy": "People Mastery",
+    "role": "Diplomat",
+    "traits": {
+      "energy": "Extraverted",
+      "mind": "Intuitive",
+      "nature": "Feeling",
+      "tactics": "Judging",
+      "identity": "Assertive"
+    },
+    "factsheetUrl": "https://www.16personalities.com/static/factsheets/Protagonist (Assertive) (Male).pdf",
+    "avatarAlt": "ENFJ (Protagonist) personality type illustrated as a man with dark hair and beard in green clothing holding the top of a sword.",
+    "avatar": {
+      "isCustom": false,
+      "isAnonymous": false,
+      "isDynamic": true,
+      "dynamicPath": "https://www.16personalities.com/static/images/personality-types/avatars/faces/main-enfj-male.svg",
+      "staticFacePath": "https://www.16personalities.com/static/images/personality-types/avatars/faces/enfj-protagonist-s3-v1-male.svg?v=3",
+      "staticBodyPath": "https://www.16personalities.com/static/images/personality-types/avatars/enfj-protagonist-male.svg?v=3",
+      "staticBodyJson": "https://www.16personalities.com/static/animations/avatars/all/protagonist-male.json",
+      "alt": "ENFJ (Protagonist) personality type illustrated as a man with dark hair and beard in green clothing holding the top of a sword.",
+      "bodyAlt": "ENFJ (Protagonist) personality type illustrated as a full-body figure of a man with dark hair and beard wearing green clothing and holding a sword.",
+      "skin": 3,
+      "genderCode": "m",
+      "tierCode": "free",
+      "typeCode": "ENFJ"
+    },
+    "gender": "male",
+    "possessivePronoun": "his",
+    "compareUrl": "https://www.16personalities.com/profiles/compare/enfj-a/m/x",
+    "color": "green",
+    "fullTypeHtml": "<span class=\"type__full prevent--drag\">Protagonist <span class=\"type__code\">(ENFJ-A)</span></span>"
+  },
+  "meta": {
+    "title": "Assertive Protagonist",
+    "description": null,
+    "schema": null,
+    "image": "https://www.16personalities.com/static/images/social/enfj.png?v=3"
+  }
+}

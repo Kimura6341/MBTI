@@ -55,3 +55,12 @@ IPIP sources:
 - https://ipip.ori.org/newPermission.htm
 
 Original-copy and illustration assets were supplied or collected under the project owner's authorization. Their provenance is retained in the content file and asset manifest.
+
+
+## English questionnaire and imported reports
+
+The active site uses 60 supplied English questions. Each of five dimensions has 12 equally weighted items, with reverse-keyed directions from the supplied CSV. This is explicitly approximate scoring, not the proprietary NERIS algorithm. Exact ties are reported as inconclusive rather than assigned a type.
+
+Sixteen supplied full HTML reports are served at dist/reports/TYPE.html, retaining their original embedded styling, illustrations, and free chapters. All supplied full reports are -A; a -T assessment displays a source-edition notice rather than claiming verified -T-specific chapters. Saved sample percentages are replaced by the current assessment values. Paid services are not connected. The email download form stores its value only in the browser and downloads HTML; no email is sent.
+
+Run npm test, npm run build:web, and npm run build:offline. Offline output includes an entry HTML and a companion reports folder; keep them together. Source import helpers read the user-supplied files from their original locations; generated assets are committed for deployment.

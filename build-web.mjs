@@ -9,6 +9,10 @@ const source=Object.fromEntries(await Promise.all(files.map(async name=>[name,wi
 source['home.mjs']=source['home.mjs'].replace("'./home-assets.mjs'",`'./home-assets.mjs?v=${digest(source['home-assets.mjs'])}'`);
 source['app.mjs']=source['app.mjs'].replace("'./home.mjs'",`'./home.mjs?v=${digest(source['home.mjs'])}'`);
 let html=withoutVersion(await fs.readFile('dist/index.html','utf8'));
+for(const name of ['english-app.mjs','english.css']){
+ const content=await fs.readFile('dist/'+name,'utf8');
+ html=html.replace('./'+name,'./'+name+'?v='+digest(content));
+}
 html=html.replace('href="./home.css"',`href="./home.css?v=${digest(source['home.css'])}"`).replace('src="./app.mjs"',`src="./app.mjs?v=${digest(source['app.mjs'])}"`);
 await fs.writeFile('dist/home.mjs',source['home.mjs']);
 await fs.writeFile('dist/app.mjs',source['app.mjs']);

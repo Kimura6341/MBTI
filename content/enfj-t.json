@@ -1,0 +1,219 @@
+{
+  "personality": {
+    "title": "Turbulent Protagonist",
+    "isSelf": false,
+    "locale": "en",
+    "details": {
+      "description": "Review his personality test results and learn more about his personality type and core traits.",
+      "cards": {
+        "personality": {
+          "key": "protagonist",
+          "animationSrc": "https://www.16personalities.com/static/animations/avatars/all/protagonist-male.json",
+          "imageSrc": "https://www.16personalities.com/static/images/personality-types/avatars/enfj-protagonist-male.svg?v=3",
+          "imageAlt": "ENFJ (Protagonist) personality type illustrated as a full-body figure of a man with dark hair and beard wearing green clothing and holding a sword.",
+          "snippetHtml": "Protagonists are inspiring optimists, readily taking action to do what they feel is right. These warm, forthright types love helping others and have the creative energy to achieve their goals.",
+          "groupSnippetHtml": "Protagonists like you belong to the <a class=\"link--inline\" href=\"https://www.16personalities.com/articles/roles-diplomats\">Diplomat</a> Role group and embrace the <a class=\"link--inline\" href=\"https://www.16personalities.com/articles/strategies-social-engagement\">Social Engagement</a> Strategy.",
+          "color": "green",
+          "link": "https://www.16personalities.com/enfj-personality",
+          "title": "His Personality",
+          "subtitleHtml": "<span class=\"type__full prevent--drag\">Protagonist <span class=\"type__code\">(ENFJ-T)</span></span>"
+        },
+        "role": {
+          "key": "diplomat",
+          "animationSrc": "https://www.16personalities.com/static/animations/profile/roles/diplomats.json?v=1",
+          "imageSrc": "https://www.16personalities.com/static/images/profile/badges/role-diplomat.svg",
+          "imageAlt": "Badge for Diplomat role.",
+          "snippetHtml": "Diplomats focus on empathy and cooperation, shining in diplomacy and counselling. They’re imaginative, warm, empathic, and influential people, often playing the role of harmonizers.",
+          "color": "green",
+          "link": "https://www.16personalities.com/articles/roles-diplomats",
+          "title": "His Role",
+          "subtitleHtml": "<span class=\"prevent--drag\">Diplomats</span>"
+        },
+        "strategy": {
+          "key": "social-engagement",
+          "animationSrc": "https://www.16personalities.com/static/animations/profile/strategies/social-engagement-diplomats.json?v=1",
+          "imageSrc": "https://www.16personalities.com/static/images/profile/badges/strategy-social-engagement-diplomat.svg",
+          "imageAlt": "Badge for Social Engagement strategy.",
+          "snippetHtml": "Individuals who prefer the Social Engagement Strategy are restless, perfectionistic people, prone to experiencing very positive and negative emotions. They’re curious and willing to work hard, making them high-achievers.",
+          "color": "green",
+          "link": "https://www.16personalities.com/articles/strategies-social-engagement",
+          "title": "His Strategy",
+          "subtitleHtml": "<span class=\"prevent--drag\">Social Engagement</span>"
+        }
+      },
+      "traits": [
+        {
+          "key": "extraverted",
+          "label": "Energy",
+          "color": "blue",
+          "score": 0,
+          "pct": 50,
+          "trait": "Extraverted",
+          "link": "https://www.16personalities.com/articles/energy-introverted-vs-extraverted",
+          "reverse": true,
+          "reversed": false,
+          "titles": [
+            "Extraverted",
+            "Introverted"
+          ],
+          "description": "Extraverted individuals readily enjoy group activities and value social interaction. They tend to be outwardly enthusiastic and express their excitement.",
+          "snippet": "Likely gets energized by social interaction and tends to openly express their enthusiasm and excitement.",
+          "imageAlt": "A scene showing a group of friends sitting and chatting around a table.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_extraverted.svg"
+        },
+        {
+          "key": "intuitive",
+          "label": "Mind",
+          "color": "yellow",
+          "score": 0,
+          "pct": 50,
+          "trait": "Intuitive",
+          "link": "https://www.16personalities.com/articles/mind-intuitive-vs-observant",
+          "reverse": true,
+          "reversed": false,
+          "titles": [
+            "Intuitive",
+            "Observant"
+          ],
+          "description": "Intuitive individuals are very imaginative, open-minded, and curious. They value originality and focus on hidden meanings and distant possibilities.",
+          "snippet": "Likely very imaginative and open-minded, focusing on hidden meanings and distant possibilities.",
+          "imageAlt": "A scene showing two researchers discussing a flying car.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_intuitive.svg"
+        },
+        {
+          "key": "feeling",
+          "label": "Nature",
+          "color": "green",
+          "score": 0,
+          "pct": 50,
+          "trait": "Feeling",
+          "link": "https://www.16personalities.com/articles/nature-thinking-vs-feeling",
+          "reverse": false,
+          "reversed": true,
+          "titles": [
+            "Thinking",
+            "Feeling"
+          ],
+          "description": "Feeling individuals value emotional expression and sensitivity. They place a lot of importance on empathy, social harmony, and cooperation.",
+          "snippet": "Likely values emotional expression and sensitivity, prioritizing empathy, social harmony, and cooperation.",
+          "imageAlt": "A scene showing two friends, one of whom is sad and is being consoled by another.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_feeling.svg"
+        },
+        {
+          "key": "judging",
+          "label": "Tactics",
+          "color": "purple",
+          "score": 0,
+          "pct": 50,
+          "trait": "Judging",
+          "link": "https://www.16personalities.com/articles/tactics-judging-vs-prospecting",
+          "reverse": true,
+          "reversed": false,
+          "titles": [
+            "Judging",
+            "Prospecting"
+          ],
+          "description": "Judging individuals are decisive, thorough, and highly organized. They value clarity, predictability, and closure, preferring structure and planning to spontaneity.",
+          "snippet": "Likely decisive, thorough, and highly organized. Values clarity and prefers planning to spontaneity.",
+          "imageAlt": "A scene showing a couple going around the store with a shopping list.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_judging.svg"
+        },
+        {
+          "key": "turbulent",
+          "label": "Identity",
+          "color": "red",
+          "score": 33,
+          "pct": 67,
+          "trait": "Turbulent",
+          "link": "https://www.16personalities.com/articles/identity-assertive-vs-turbulent",
+          "reverse": false,
+          "reversed": true,
+          "titles": [
+            "Assertive",
+            "Turbulent"
+          ],
+          "description": "Turbulent individuals are self-conscious and sensitive to stress. They feel a sense of urgency in their emotions and tend to be success-driven, perfectionistic, and eager to improve.",
+          "snippet": "Likely self-conscious, sensitive to stress, success-driven, perfectionistic, and eager to improve.",
+          "imageAlt": "A scene showing a stressed student trying to complete their thesis late at night, with a number of discarded drafts lying around.",
+          "imageSrc": "https://www.16personalities.com/static/images/theory/traits/16personalities_trait_turbulent.svg"
+        }
+      ],
+      "traitsTitle": "His Traits",
+      "lastTestAt": null,
+      "factsheetUrl": "https://www.16personalities.com/static/factsheets/Protagonist (Turbulent) (Male).pdf",
+      "typeCode": "ENFJ",
+      "contentType": "description",
+      "contentId": 50,
+      "socialMediaTitle": "ENFJ Personality (Protagonist)",
+      "pageShares": "298K",
+      "pageShareUrl": "https://www.16personalities.com/enfj-personality"
+    },
+    "personality": "Turbulent Protagonist",
+    "personalityShort": "Protagonist",
+    "personalityLink": "https://www.16personalities.com/enfj-personality",
+    "personalityCode": "ENFJ-T",
+    "typeCode": "ENFJ",
+    "typeArticle": "a",
+    "fullCodeHtml": "<span class=\"type__code\">(ENFJ-T)</span>",
+    "personalityNice": "Turbulent Protagonist (ENFJ-T)",
+    "personalityNiceShort": "Protagonist (ENFJ-T)",
+    "score1": "50% Extraverted",
+    "score2": "50% Intuitive",
+    "score3": "50% Feeling",
+    "score4": "50% Judging",
+    "score5": "67% Turbulent",
+    "variant": "turbulent",
+    "scores": [
+      0,
+      0,
+      0,
+      0,
+      33
+    ],
+    "traitPcts": [
+      50,
+      50,
+      50,
+      50,
+      67
+    ],
+    "traitPctString": "50% Extraverted, 50% Intuitive, 50% Feeling, 50% Judging, 67% Turbulent",
+    "strategy": "Social Engagement",
+    "role": "Diplomat",
+    "traits": {
+      "energy": "Extraverted",
+      "mind": "Intuitive",
+      "nature": "Feeling",
+      "tactics": "Judging",
+      "identity": "Turbulent"
+    },
+    "factsheetUrl": "https://www.16personalities.com/static/factsheets/Protagonist (Turbulent) (Male).pdf",
+    "avatarAlt": "ENFJ (Protagonist) personality type illustrated as a man with dark hair and beard in green clothing holding the top of a sword.",
+    "avatar": {
+      "isCustom": false,
+      "isAnonymous": false,
+      "isDynamic": true,
+      "dynamicPath": "https://www.16personalities.com/static/images/personality-types/avatars/faces/main-enfj-male.svg",
+      "staticFacePath": "https://www.16personalities.com/static/images/personality-types/avatars/faces/enfj-protagonist-s3-v1-male.svg?v=3",
+      "staticBodyPath": "https://www.16personalities.com/static/images/personality-types/avatars/enfj-protagonist-male.svg?v=3",
+      "staticBodyJson": "https://www.16personalities.com/static/animations/avatars/all/protagonist-male.json",
+      "alt": "ENFJ (Protagonist) personality type illustrated as a man with dark hair and beard in green clothing holding the top of a sword.",
+      "bodyAlt": "ENFJ (Protagonist) personality type illustrated as a full-body figure of a man with dark hair and beard wearing green clothing and holding a sword.",
+      "skin": 3,
+      "genderCode": "m",
+      "tierCode": "free",
+      "typeCode": "ENFJ"
+    },
+    "gender": "male",
+    "possessivePronoun": "his",
+    "compareUrl": "https://www.16personalities.com/profiles/compare/enfj-t/m/x",
+    "color": "green",
+    "fullTypeHtml": "<span class=\"type__full prevent--drag\">Protagonist <span class=\"type__code\">(ENFJ-T)</span></span>"
+  },
+  "meta": {
+    "title": "Turbulent Protagonist",
+    "description": null,
+    "schema": null,
+    "image": "https://www.16personalities.com/static/images/social/enfj.png?v=3"
+  }
+}
