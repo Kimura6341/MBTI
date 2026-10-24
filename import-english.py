@@ -50,7 +50,7 @@ for f in sorted(SOURCE.glob('*-A-*.html')):
 assert len(reports)==16
 rows=list(csv.DictReader(Path('E:/小红书/1/16personalities_questions.csv').open(encoding='utf-8-sig')))
 assert len(rows)==60 and len({r['order'] for r in rows})==60
-questions=[{'id':'en-'+r['order'],'text':r['question'],'axis':r['axis'],'direction':1 if r['agree_indicates'][0]==r['axis'][0] else -1} for r in rows]
+questions=[{'id':'en-'+r['order'],'order':int(r['order']),'agreePole':r['agree_indicates'][0],'weight':1,'text':r['question'],'axis':r['axis'],'direction':1 if r['agree_indicates'][0]==r['axis'][0] else -1} for r in rows]
 (ROOT/'dist/english-questions.mjs').write_text('export const englishQuestions='+json.dumps(questions,ensure_ascii=False)+';\n',encoding='utf-8')
 (ROOT/'dist/reports').mkdir(exist_ok=True)
 for code,report in reports.items():(ROOT/f'dist/reports/{code}.json').write_text(json.dumps(report,ensure_ascii=False),encoding='utf-8')

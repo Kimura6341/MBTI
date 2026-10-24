@@ -1,0 +1,302 @@
+[
+  {
+    "order": 0,
+    "axis": "EI",
+    "agreePole": "E"
+  },
+  {
+    "order": 1,
+    "axis": "NS",
+    "agreePole": "N"
+  },
+  {
+    "order": 2,
+    "axis": "TF",
+    "agreePole": "F"
+  },
+  {
+    "order": 3,
+    "axis": "JP",
+    "agreePole": "J"
+  },
+  {
+    "order": 4,
+    "axis": "AT",
+    "agreePole": "A"
+  },
+  {
+    "order": 5,
+    "axis": "EI",
+    "agreePole": "I"
+  },
+  {
+    "order": 6,
+    "axis": "JP",
+    "agreePole": "J"
+  },
+  {
+    "order": 7,
+    "axis": "TF",
+    "agreePole": "F"
+  },
+  {
+    "order": 8,
+    "axis": "JP",
+    "agreePole": "J"
+  },
+  {
+    "order": 9,
+    "axis": "AT",
+    "agreePole": "T"
+  },
+  {
+    "order": 10,
+    "axis": "EI",
+    "agreePole": "E"
+  },
+  {
+    "order": 11,
+    "axis": "NS",
+    "agreePole": "S"
+  },
+  {
+    "order": 12,
+    "axis": "TF",
+    "agreePole": "T"
+  },
+  {
+    "order": 13,
+    "axis": "JP",
+    "agreePole": "P"
+  },
+  {
+    "order": 14,
+    "axis": "AT",
+    "agreePole": "A"
+  },
+  {
+    "order": 15,
+    "axis": "EI",
+    "agreePole": "E"
+  },
+  {
+    "order": 16,
+    "axis": "NS",
+    "agreePole": "N"
+  },
+  {
+    "order": 17,
+    "axis": "TF",
+    "agreePole": "F"
+  },
+  {
+    "order": 18,
+    "axis": "NS",
+    "agreePole": "N"
+  },
+  {
+    "order": 19,
+    "axis": "AT",
+    "agreePole": "T"
+  },
+  {
+    "order": 20,
+    "axis": "EI",
+    "agreePole": "I"
+  },
+  {
+    "order": 21,
+    "axis": "NS",
+    "agreePole": "S"
+  },
+  {
+    "order": 22,
+    "axis": "TF",
+    "agreePole": "T"
+  },
+  {
+    "order": 23,
+    "axis": "JP",
+    "agreePole": "J"
+  },
+  {
+    "order": 24,
+    "axis": "TF",
+    "agreePole": "T"
+  },
+  {
+    "order": 25,
+    "axis": "EI",
+    "agreePole": "I"
+  },
+  {
+    "order": 26,
+    "axis": "AT",
+    "agreePole": "T"
+  },
+  {
+    "order": 27,
+    "axis": "TF",
+    "agreePole": "T"
+  },
+  {
+    "order": 28,
+    "axis": "JP",
+    "agreePole": "P"
+  },
+  {
+    "order": 29,
+    "axis": "NS",
+    "agreePole": "N"
+  },
+  {
+    "order": 30,
+    "axis": "EI",
+    "agreePole": "E"
+  },
+  {
+    "order": 31,
+    "axis": "NS",
+    "agreePole": "S"
+  },
+  {
+    "order": 32,
+    "axis": "TF",
+    "agreePole": "F"
+  },
+  {
+    "order": 33,
+    "axis": "JP",
+    "agreePole": "P"
+  },
+  {
+    "order": 34,
+    "axis": "AT",
+    "agreePole": "A"
+  },
+  {
+    "order": 35,
+    "axis": "EI",
+    "agreePole": "E"
+  },
+  {
+    "order": 36,
+    "axis": "NS",
+    "agreePole": "N"
+  },
+  {
+    "order": 37,
+    "axis": "TF",
+    "agreePole": "T"
+  },
+  {
+    "order": 38,
+    "axis": "JP",
+    "agreePole": "J"
+  },
+  {
+    "order": 39,
+    "axis": "AT",
+    "agreePole": "A"
+  },
+  {
+    "order": 40,
+    "axis": "EI",
+    "agreePole": "I"
+  },
+  {
+    "order": 41,
+    "axis": "NS",
+    "agreePole": "N"
+  },
+  {
+    "order": 42,
+    "axis": "EI",
+    "agreePole": "E"
+  },
+  {
+    "order": 43,
+    "axis": "JP",
+    "agreePole": "J"
+  },
+  {
+    "order": 44,
+    "axis": "AT",
+    "agreePole": "T"
+  },
+  {
+    "order": 45,
+    "axis": "NS",
+    "agreePole": "S"
+  },
+  {
+    "order": 46,
+    "axis": "AT",
+    "agreePole": "T"
+  },
+  {
+    "order": 47,
+    "axis": "TF",
+    "agreePole": "F"
+  },
+  {
+    "order": 48,
+    "axis": "JP",
+    "agreePole": "P"
+  },
+  {
+    "order": 49,
+    "axis": "AT",
+    "agreePole": "T"
+  },
+  {
+    "order": 50,
+    "axis": "EI",
+    "agreePole": "I"
+  },
+  {
+    "order": 51,
+    "axis": "NS",
+    "agreePole": "S"
+  },
+  {
+    "order": 52,
+    "axis": "EI",
+    "agreePole": "E"
+  },
+  {
+    "order": 53,
+    "axis": "TF",
+    "agreePole": "F"
+  },
+  {
+    "order": 54,
+    "axis": "AT",
+    "agreePole": "T"
+  },
+  {
+    "order": 55,
+    "axis": "JP",
+    "agreePole": "J"
+  },
+  {
+    "order": 56,
+    "axis": "NS",
+    "agreePole": "N"
+  },
+  {
+    "order": 57,
+    "axis": "TF",
+    "agreePole": "F"
+  },
+  {
+    "order": 58,
+    "axis": "JP",
+    "agreePole": "P"
+  },
+  {
+    "order": 59,
+    "axis": "AT",
+    "agreePole": "A"
+  }
+]
