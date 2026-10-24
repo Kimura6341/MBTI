@@ -67,3 +67,6 @@ Run npm test, npm run build:web, and npm run build:offline. Offline output inclu
 
 
 Algorithm reference: content/algorithm-spec.md and content/algorithm-key.json preserve the user-supplied reverse-engineered specification. Answer encoding is -3 for strongly agree and +3 for strongly disagree. Existing v1 browser answers migrate by sign inversion to v2, preserving selections. All sixty axis/direction assignments match the supplied key; the all-disagree fixture returns ISTP-A. The documented >=0 tie rule is used internally; the UI still shows an inconclusive dimensional result when any axis is exactly tied. Item weights are explicitly assumed 1, and displayed percentages remain a local linear estimate because official weights and the transform are unknown.
+
+
+Homepage: the English landing page now adapts the reference homepage's original responsive layout, angular section dividers, illustrations, and Inter / Red Hat Display fonts. Embedded SVGs and fonts work offline. The four metric cards show this site's actual 60 questions, 16 types, 32 report editions, and approximate completion time. The original testimonials are replaced by an interactive report carousel. Persona Spectrum branding and the previously simplified navigation are retained. The homepage stylesheet is disabled on the questionnaire to keep the layouts independent.

@@ -10,11 +10,13 @@ source['home.mjs']=source['home.mjs'].replace("'./home-assets.mjs'",`'./home-ass
 source['app.mjs']=source['app.mjs'].replace("'./home.mjs'",`'./home.mjs?v=${digest(source['home.mjs'])}'`);
 let html=withoutVersion(await fs.readFile('dist/index.html','utf8'));
 const englishQuestions=await fs.readFile('dist/english-questions.mjs','utf8');
+const englishHome=withoutVersion(await fs.readFile('dist/english-home.mjs','utf8'));
+await fs.writeFile('dist/english-home.mjs',englishHome);
 const englishModel=withoutVersion(await fs.readFile('dist/english-model.mjs','utf8')).replace("'./english-questions.mjs'",`'./english-questions.mjs?v=${digest(englishQuestions)}'`);
 await fs.writeFile('dist/english-model.mjs',englishModel);
-const englishApp=withoutVersion(await fs.readFile('dist/english-app.mjs','utf8')).replace("'./english-model.mjs'",`'./english-model.mjs?v=${digest(englishModel)}'`);
+const englishApp=withoutVersion(await fs.readFile('dist/english-app.mjs','utf8')).replace("'./english-model.mjs'",`'./english-model.mjs?v=${digest(englishModel)}'`).replace("'./english-home.mjs'",`'./english-home.mjs?v=${digest(englishHome)}'`);
 await fs.writeFile('dist/english-app.mjs',englishApp);
-for(const name of ['english-app.mjs','english.css']){
+for(const name of ['english-app.mjs','english.css','home-reference.css']){
  const content=await fs.readFile('dist/'+name,'utf8');
  html=html.replace('./'+name,'./'+name+'?v='+digest(content));
 }
