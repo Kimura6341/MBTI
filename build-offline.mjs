@@ -6,6 +6,6 @@ const [html,css,...scripts]=await Promise.all(['dist/index.html','dist/styles.cs
 const compact=await fs.readFile('dist/compact.css','utf8');
 const homeCSS=await fs.readFile('dist/home.css','utf8');
 const referenceCSS=await fs.readFile('dist/reference.css','utf8');
-const merged=html.replace('<link rel="stylesheet" href="./home.css">',()=>'<style>'+homeCSS+'</style>').replace('<link rel="stylesheet" href="./styles.css">',()=>'<style>'+css+'</style>').replace('<link rel="stylesheet" href="./compact.css">',()=>'<style>'+compact+'</style>').replace('<link rel="stylesheet" href="./reference.css">',()=>'<style>'+referenceCSS+'</style>').replace('<script type="module" src="./app.mjs"></script>',()=>'<script type="module">'+scripts.map(strip).join('\n')+'</script>');
+const merged=html.replace(/<link rel="stylesheet" href="\.\/home\.css(?:\?[^"]*)?">/,()=>'<style>'+homeCSS+'</style>').replace('<link rel="stylesheet" href="./styles.css">',()=>'<style>'+css+'</style>').replace('<link rel="stylesheet" href="./compact.css">',()=>'<style>'+compact+'</style>').replace('<link rel="stylesheet" href="./reference.css">',()=>'<style>'+referenceCSS+'</style>').replace(/<script type="module" src="\.\/app\.mjs(?:\?[^"]*)?"><\/script>/,()=>'<script type="module">'+scripts.map(strip).join('\n')+'</script>');
 await fs.mkdir(out,{recursive:true});await fs.writeFile(out+'/人格光谱-双击打开.html',merged);
 console.log('Offline HTML ready: '+out+'/人格光谱-双击打开.html');

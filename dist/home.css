@@ -4,3 +4,5 @@ body.page-home{background:white;color:#343c48;font-family:"Noto Sans TC","Micros
 @media(prefers-reduced-motion:reduce){.home-cta{transition:none}.home-cta:hover{transform:none}}
 
 .page-home .home-footer-grid{grid-template-columns:1fr}.page-home .home-footer-grid button{margin-left:0;text-align:left}
+
+.page-home .home-logo.brand{display:flex;align-items:center;gap:11px;font-size:22px;color:#38414d;text-decoration:none}.page-home .home-logo.brand small{font-size:9px;letter-spacing:2px;color:#8b8292}.page-home .home-logo .mark{flex-shrink:0}

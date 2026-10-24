@@ -1,4 +1,4 @@
-import {homeHeader,homeMarkup,homeFooter} from './home.mjs';
+import {homeHeader,homeMarkup,homeFooter} from './home.mjs?v=de17de5b806e';
 import {typeImages} from './type-images.mjs';
 import {userTypeCopy} from './user-type-copy.mjs';
 import {referenceMarkup,referenceDemoAnswers,referenceChapters} from './reference-report.mjs';
