@@ -1,0 +1,226 @@
+[
+  {
+    "type": "INTJ",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/intj-architect-male.svg?v=3",
+    "file": "intj-avatar.svg",
+    "alt": "INTJ（架構師）人格類型，以全身人物形象呈現為一位穿著紫色服裝、留著鬍子的男性，站在一張擺有旗幟的小桌旁。"
+  },
+  {
+    "type": "INTJ",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/architect.svg?v=2",
+    "file": "intj-scene.svg",
+    "alt": "INTJ 人格類型（架構師）坐在王座般的椅子上，審視打開的人物檔案"
+  },
+  {
+    "type": "INTP",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/intp-logician-female.svg?v=3",
+    "file": "intp-avatar.svg",
+    "alt": "INTP（邏輯學家）人格類型，以全身人物形象呈現為一位穿著實驗袍、戴著眼鏡的女性，舉著裝有紫色液體的燒瓶，以好奇的姿態站立。"
+  },
+  {
+    "type": "INTP",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/logician.svg?v=2",
+    "file": "intp-scene.svg",
+    "alt": "INTP 人格類型（邏輯學家）沉浸在思考中，周圍環繞著圖表與機械零件"
+  },
+  {
+    "type": "ENTJ",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/entj-commander-female.svg?v=3",
+    "file": "entj-avatar.svg",
+    "alt": "ENTJ（指揮官）人格類型，以全身人物形象呈現為一位穿著紫色套裝的女性，手持指示棒，姿態果斷地站立。"
+  },
+  {
+    "type": "ENTJ",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/commander.svg?v=2",
+    "file": "entj-scene.svg",
+    "alt": "ENTJ 人格類型（指揮官）帶領團隊，以自信的權威號召三位追隨者"
+  },
+  {
+    "type": "ENTP",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/entp-debater-male.svg?v=3",
+    "file": "entp-avatar.svg",
+    "alt": "ENTP（辯論家）人格類型，以全身人物形象呈現為一位穿著紫色服裝的男性，站在帶有麥克風的講台旁，一隻手抬起作手勢。"
+  },
+  {
+    "type": "ENTP",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/debater.svg?v=2",
+    "file": "entp-scene.svg",
+    "alt": "ENTP 人格類型（辯論家）在多個場景中展現：制定策略、分析數據和辯論想法"
+  },
+  {
+    "type": "INFJ",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/infj-advocate-male.svg?v=3",
+    "file": "infj-avatar.svg",
+    "alt": "INFJ（提倡者）人格類型，以全身人物形象呈現為一位穿著綠色長袍、留著長白鬍子的年長男性，手持魔杖。"
+  },
+  {
+    "type": "INFJ",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/advocate.svg?v=2",
+    "file": "infj-scene.svg",
+    "alt": "INFJ 人格類型（提倡者）置身於多元角色之中，從關愛孩子的父母到強大的統治者皆有"
+  },
+  {
+    "type": "INFP",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/infp-mediator-female.svg?v=3",
+    "file": "infp-avatar.svg",
+    "alt": "INFP（調停者）人格類型，以全身人物形象呈現為一位穿著綠色服裝的女性，手持風車俏皮地舞動，周圍有蝴蝶環繞。"
+  },
+  {
+    "type": "INFP",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/mediator.svg?v=2",
+    "file": "infp-scene.svg",
+    "alt": "INFP 人格類型（調停者）身處充滿想像力的奇幻景觀中，與神話生物互動"
+  },
+  {
+    "type": "ENFJ",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/enfj-protagonist-male.svg?v=3",
+    "file": "enfj-avatar.svg",
+    "alt": "ENFJ（主人公）人格類型，以全身人物形象呈現為一位留著深色頭髮和鬍子的男性，穿著綠色服裝並手持長劍。"
+  },
+  {
+    "type": "ENFJ",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/protagonist.svg?v=2",
+    "file": "enfj-scene.svg",
+    "alt": "ENFJ 人格類型（主人公）以熱情而鼓舞人心的能量號召一群追隨者"
+  },
+  {
+    "type": "ENFP",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/enfp-campaigner-female.svg?v=3",
+    "file": "enfp-avatar.svg",
+    "alt": "ENFP（活動家）人格類型，以全身人物形象呈現為一位穿著綠色服裝、背著背包的女性，充滿活力地站著並揮手。"
+  },
+  {
+    "type": "ENFP",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/campaigner.svg?v=2",
+    "file": "enfp-scene.svg",
+    "alt": "ENFP 人格類型（活動家）向一群投入聆聽的聽眾展示宏大的願景"
+  },
+  {
+    "type": "ISTJ",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/istj-logistician-male.svg?v=3",
+    "file": "istj-avatar.svg",
+    "alt": "ISTJ（物流師）人格類型，以全身人物形象呈現為一位穿著藍綠色服裝、戴著藍色眼鏡的男性，手持鉛筆或筆和筆記本。"
+  },
+  {
+    "type": "ISTJ",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/logistician.svg?v=2",
+    "file": "istj-scene.svg",
+    "alt": "ISTJ 人格類型（物流師）在井然有序的辦公室中，於桌前有條不紊地審閱文件"
+  },
+  {
+    "type": "ISFJ",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/isfj-defender-female.svg?v=3",
+    "file": "isfj-avatar.svg",
+    "alt": "ISFJ（守護者）人格類型，以全身人物形象呈現為一位穿著藍綠色護士制服的女性，雙臂交叉，以關懷而專注的姿態站立。"
+  },
+  {
+    "type": "ISFJ",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/defender.svg?v=2",
+    "file": "isfj-scene.svg",
+    "alt": "ISFJ 人格類型（守護者）一邊想著他人一邊包裝禮物，透過貼心舉動表達關懷"
+  },
+  {
+    "type": "ESTJ",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/estj-executive-female.svg?v=3",
+    "file": "estj-avatar.svg",
+    "alt": "ESTJ（管理者）人格類型，以全身人物形象呈現為一位戴著藍色眼鏡、穿著藍綠色商務服裝的女性，手持藍色尺子，自信地站立。"
+  },
+  {
+    "type": "ESTJ",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/executive.svg?v=2",
+    "file": "estj-scene.svg",
+    "alt": "ESTJ 人格類型（管理者）在社區搬動家具時主導局面並指揮他人"
+  },
+  {
+    "type": "ESFJ",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/esfj-consul-male.svg?v=3",
+    "file": "esfj-avatar.svg",
+    "alt": "ESFJ（執政官）人格類型，以全身人物形象呈現為一位穿著藍綠色服裝的男性，帶著一本書，手捧插有蠟燭的藍色生日蛋糕，並攜帶一把藍色雨傘。"
+  },
+  {
+    "type": "ESFJ",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/consul.svg?v=2",
+    "file": "esfj-scene.svg",
+    "alt": "ESFJ 人格類型（執政官）身處社交聚會中心，熱情地與賓客交流"
+  },
+  {
+    "type": "ISTP",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/istp-virtuoso-male.svg?v=3",
+    "file": "istp-avatar.svg",
+    "alt": "ISTP（鑒賞家）人格類型，以全身人物形象呈現為一位穿著黃色工作服的男性，手持工具，以準備就緒的姿態站立，表情專注。"
+  },
+  {
+    "type": "ISTP",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/virtuoso.svg?v=2",
+    "file": "istp-scene.svg",
+    "alt": "ISTP 人格類型（鑒賞家）在兩個場景中展現：親手進行機械工作，以及與他人一起實際解決問題"
+  },
+  {
+    "type": "ISFP",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/isfp-adventurer-female.svg?v=3",
+    "file": "isfp-avatar.svg",
+    "alt": "ISFP（冒險家）人格類型，以全身人物形象呈現為一位穿著吊帶褲、金色尖刺髮型的女性，手持畫筆和調色盤，準備創作藝術。"
+  },
+  {
+    "type": "ISFP",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/adventurer.svg?v=2",
+    "file": "isfp-scene.svg",
+    "alt": "ISFP 人格類型（冒險家）在多個場景中展現：繪畫、跳舞、冥想和閱讀"
+  },
+  {
+    "type": "ESTP",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/estp-entrepreneur-male.svg?v=3",
+    "file": "estp-avatar.svg",
+    "alt": "ESTP（企業家）人格類型，以全身人物形象呈現為一位穿著黃色服裝、戴著太陽眼鏡的男性，一手指向前方，並背著標有「SPORT」字樣的包。"
+  },
+  {
+    "type": "ESTP",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/entrepreneur.svg?v=2",
+    "file": "estp-scene.svg",
+    "alt": "ESTP 人格類型（企業家）在熱鬧的戶外場景中充滿活力地與多元人群互動"
+  },
+  {
+    "type": "ESFP",
+    "kind": "avatar",
+    "url": "https://www.16personalities.com/static/images/personality-types/avatars/esfp-entertainer-female.svg?v=3",
+    "file": "esfp-avatar.svg",
+    "alt": "ESFP（表演者）人格類型，以全身人物形象呈現為一位穿著金色連身裙的女性，一邊搖著沙鈴，一邊歡快地跳舞。"
+  },
+  {
+    "type": "ESFP",
+    "kind": "scene",
+    "url": "https://www.16personalities.com/static/animations/type-descriptions/introductions/entertainer.svg?v=2",
+    "file": "esfp-scene.svg",
+    "alt": "ESFP 人格類型（表演者）身處熱鬧社交聚會中心，與多元群體舉杯致意"
+  }
+]

@@ -1,1 +1,10 @@
-{"name":"persona-spectrum","private":true,"type":"module","scripts":{"test":"node --test tests/model.test.mjs","dev":"node preview.mjs"}}
+{
+  "name": "persona-spectrum",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --experimental-test-isolation=none tests/model.test.mjs tests/report.test.mjs tests/type-stories.test.mjs tests/reference-report.test.mjs",
+    "dev": "node preview.mjs",
+    "build:offline": "node build-offline.mjs"
+  }
+}
