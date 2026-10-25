@@ -32,12 +32,18 @@ function quiz(){
  const count=Object.keys(answers).length;
  root.innerHTML=`<section class="quiz"><p class="eyebrow">FREE PERSONALITY TEST</p><h1>Be yourself. Answer honestly.</h1><p>Choose what usually describes you, rather than who you would like to be.</p><div class="progress-label"><strong>Step ${page+1} of 10</strong><span>${count} / 60 answered</span></div><progress max="60" value="${count}" aria-label="Questions answered"></progress><form><div id="error" role="alert"></div>${englishQuestions.slice(page*6,page*6+6).map((q,i)=>`<fieldset id="${q.id}"><legend><small>${page*6+i+1} / 60</small>${escape(q.text)}</legend><div class="choices"><span>Agree</span>${[-3,-2,-1,0,1,2,3].map((v,n)=>`<label style="--size:${[48,40,32,24,32,40,48][n]}px;--tone:${n<3?'#539c85':n>3?'#9274a4':'#aaa7ae'}"><input type="radio" name="${q.id}" value="${v}" aria-label="${['Strongly agree','Moderately agree','Slightly agree','Neither agree nor disagree','Slightly disagree','Moderately disagree','Strongly disagree'][n]}" ${answers[q.id]===v?'checked':''}><span></span></label>`).join('')}<span>Disagree</span></div></fieldset>`).join('')}<div class="actions">${page?'<button type="button" class="secondary" id="previous">← Previous</button>':'<a href="#" class="secondary">Home</a>'}<button class="primary">${page===9?'See my results':'Next'} →</button></div></form><p class="method">Approximate scoring: the supplied specification maps each answer to one dimension. Unknown item weights are assumed equal and percentages use a linear estimate. This is not the original proprietary scoring algorithm. Results describe preferences, not ability or a diagnosis. Progress stays in this browser.</p></section>`;
  const form=root.querySelector('form');
- let pointerSelection=false;
+ let pointerSelection=false,pointerReview=false;
  const fields=[...form.querySelectorAll('fieldset')];
  fields.forEach(field=>field.classList.toggle('is-answered',Number.isInteger(answers[field.id])));
  emphasizeQuestion(fields.find(field=>!Number.isInteger(answers[field.id]))||fields[0]);
- form.addEventListener('pointerdown',event=>{cancelAnswerScroll();pointerSelection=Boolean(event.target.closest('.choices label'));});
- form.addEventListener('keydown',()=>{pointerSelection=false;cancelAnswerScroll();});
+ form.addEventListener('pointerdown',event=>{
+  cancelAnswerScroll();pointerSelection=Boolean(event.target.closest('.choices label'));
+  const field=event.target.closest('fieldset'),current=form.querySelector('fieldset.is-current');
+  pointerReview=Boolean(field&&(Number.isInteger(answers[field.id])||(current&&fields.indexOf(field)<fields.indexOf(current))));
+  // A checked radio does not emit change when clicked again, so handle review here too.
+  if(pointerReview)moveToQuestion(field);
+ });
+ form.addEventListener('keydown',()=>{pointerSelection=false;pointerReview=false;cancelAnswerScroll();});
  form.addEventListener('focusin',event=>{const field=event.target.closest('fieldset');if(field)emphasizeQuestion(field);});
  form.onchange=event=>{
   const input=event.target;if(input.type!=='radio')return;
@@ -48,10 +54,10 @@ function quiz(){
   root.querySelector('#error').textContent='';
   if(pointerSelection){
    const index=fields.indexOf(field);
-   const next=fields[index+1]||fields.find(el=>!Number.isInteger(answers[el.id]))||form.querySelector('.actions');
+   const next=pointerReview?field:fields[index+1]||fields.find(el=>!Number.isInteger(answers[el.id]))||form.querySelector('.actions');
    moveToQuestion(next);
   }
-  pointerSelection=false;
+  pointerSelection=false;pointerReview=false;
  };
 
  root.querySelector('#previous')?.addEventListener('click',()=>{page--;save();quiz();root.querySelector('fieldset').scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});
