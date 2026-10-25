@@ -3,5 +3,5 @@ export function traitGeometry(percent,dominantLeft){
  const pct=Math.min(100,Math.max(50,Number(percent)));
  if(!Number.isFinite(pct))throw new TypeError('Invalid trait percentage');
  const marker=dominantLeft?100-pct:pct;
- return {marker,fillStart:dominantLeft?marker:0,fillWidth:pct};
+ return {marker,fillStart:dominantLeft?marker:50,fillWidth:pct-50};
 }

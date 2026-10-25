@@ -1,1 +1,5 @@
-{"endpoint":""}
+{
+  "mode": "manual",
+  "provider": "formsubmit",
+  "endpoint": "https://formsubmit.co/ajax/762299f3379835f5c606894a56af957b"
+}

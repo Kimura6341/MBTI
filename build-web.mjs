@@ -24,4 +24,15 @@ html=html.replace('href="./home.css"',`href="./home.css?v=${digest(source['home.
 await fs.writeFile('dist/home.mjs',source['home.mjs']);
 await fs.writeFile('dist/app.mjs',source['app.mjs']);
 await fs.writeFile('dist/index.html',html);
-console.log('Homepage scripts and stylesheet now use content-versioned URLs.');
+const traitGeometry=await fs.readFile('dist/trait-geometry.mjs','utf8');
+const reportRuntime=withoutVersion(await fs.readFile('dist/report-runtime.mjs','utf8')).replace("'./trait-geometry.mjs'",`'./trait-geometry.mjs?v=${digest(traitGeometry)}'`);
+await fs.writeFile('dist/report-runtime.mjs',reportRuntime);
+for(const directory of ['dist','dist/reports']){
+ for(const name of await fs.readdir(directory)){
+  if(!name.endsWith('.html'))continue;
+  const path=directory+'/'+name,original=await fs.readFile(path,'utf8');
+  const updated=original.replace(/(src="(?:\.\/|\.\.\/)report-runtime\.mjs)(?:\?v=[a-zA-Z0-9_-]+)?"/g,`$1?v=${digest(reportRuntime)}"`);
+  if(updated!==original)await fs.writeFile(path,updated);
+ }
+}
+console.log('Homepage and report resources now use content-versioned URLs.');

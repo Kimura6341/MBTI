@@ -1,4 +1,4 @@
-import {traitGeometry} from './trait-geometry.mjs?v=8736955167ee';
+import {traitGeometry} from './trait-geometry.mjs?v=bce2bdff0dec';
 const sourceCode=document.body.dataset.personaType;
 const sourceVariant=document.body.dataset.personaVariant||'A';
 const labels=[['Energy','Extraverted','Introverted'],['Mind','Intuitive','Observant'],['Nature','Thinking','Feeling'],['Tactics','Judging','Prospecting'],['Identity','Assertive','Turbulent']];
@@ -42,11 +42,16 @@ tabs.forEach((tab,i)=>{
   const label=tab.querySelector('.sp-barlabel .font-body');if(label){label.replaceChildren();const strong=document.createElement('strong');strong.textContent=d.pct+'%';label.append(strong,` ${d.trait}`);}
   const bar=tab.querySelector('[data-testid="bar"]'),dot=tab.querySelector('[data-testid="dot"]'),track=tab.querySelector('[data-testid="progressbar"]');
   const geometry=traitGeometry(d.pct,d.trait===labels[i][1]);
-  if(bar){for(const [key,value] of Object.entries({position:'absolute',left:geometry.fillStart+'%',right:'auto',top:'0',bottom:'0',width:geometry.fillWidth+'%',margin:'0',transition:'none'}))bar.style.setProperty(key,value,'important');}
+  if(bar){for(const [key,value] of Object.entries({position:'absolute',left:geometry.fillStart+'%',right:'auto',top:'0',bottom:'0',width:geometry.fillWidth+'%',margin:'0','border-radius':geometry.marker<50?'12px 0 0 12px':'0 12px 12px 0',transition:'none'}))bar.style.setProperty(key,value,'important');}
+  if(track){
+   const midpoint=document.createElement('span');midpoint.className='persona-trait-midpoint';midpoint.setAttribute('aria-hidden','true');
+   midpoint.style.cssText='position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:currentColor;opacity:.35;pointer-events:none;z-index:1';
+   track.append(midpoint);
+  }
   if(dot&&track){
    // The marker must use the full track, not the resized colored segment.
    track.append(dot);
-   for(const [key,value] of Object.entries({position:'absolute',left:geometry.marker+'%',right:'auto',margin:'0',transform:'translateX(-50%)',transition:'none'}))dot.style.setProperty(key,value,'important');
+   for(const [key,value] of Object.entries({position:'absolute',left:geometry.marker+'%',right:'auto',margin:'0',transform:'translateX(-50%)','z-index':'2',transition:'none'}))dot.style.setProperty(key,value,'important');
   }
   const bubble=tab.querySelector('.sp-barlabel');
   if(bubble&&track){
@@ -71,19 +76,38 @@ const observer=new IntersectionObserver(entries=>{const active=entries.filter(e=
 document.querySelectorAll('section[id]').forEach(section=>observer.observe(section));
 const emailForm=document.querySelector('#persona-email form'),emailStatus=document.querySelector('#persona-email-status');
 const emailEndpoint=document.querySelector('meta[name="persona-email-endpoint"]')?.content||'';
-if(!emailEndpoint){emailStatus.textContent='Email delivery is not available yet. You can download your report directly below.';emailForm.querySelector('[type="submit"]').disabled=true;}
-function downloadReport(){
- const clone=document.documentElement.cloneNode(true);clone.querySelectorAll('script,dialog,[data-email-report],.sp-resultsprompt,#upgrade-now').forEach(s=>s.remove());const blob=new Blob(['<!doctype html>'+clone.outerHTML],{type:'text/html'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`${sourceCode}-${result?.variant||sourceVariant}-report.html`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);document.querySelector('#persona-email').close();
-}
-document.querySelector('#persona-download-direct').addEventListener('click',downloadReport);
+if(!emailEndpoint||location.protocol==='file:'){emailStatus.textContent=location.protocol==='file:'?'Open the online site to request your report.':'Report requests are not open yet. Please try again later.';emailForm.querySelector('[type="submit"]').disabled=true;}
 emailForm.addEventListener('submit',async event=>{
  event.preventDefault();if(!emailEndpoint)return;
- const button=emailForm.querySelector('[type="submit"]');button.disabled=true;emailStatus.textContent='Sending your report…';
+ const button=emailForm.querySelector('[type="submit"]');button.disabled=true;emailStatus.textContent='Submitting your request…';
+ const customerEmail=emailForm.querySelector('input[type="email"]').value.trim();
+ const type=sourceCode+'-'+sourceVariant;
+ const reportUrl=new URL('reports/'+type+'.html','https://kimura6341.github.io/MBTI/');if(result)reportUrl.hash='result='+encodeURIComponent(JSON.stringify(result));
+ const scores=result?result.dimensions.map(d=>`${d.label}: ${d.pct}% ${d.trait}`).join(' | '):'Not assessed — report preview request';
+ const formSubmit=new URL(emailEndpoint).hostname==='formsubmit.co';
+ const request=formSubmit?{
+  email:customerEmail,
+  _replyto:customerEmail,
+  _subject:`${customerEmail==='test@example.com'?'[TEST ONLY] ':''}[Report request] ${type}`,
+  _template:'table',
+  _url:'https://kimura6341.github.io/MBTI/',
+  _honey:emailForm.querySelector('[name="website"]').value,
+  personality_type:type,
+  assessment_scores:scores,
+  report_link:reportUrl.href,
+  requested_at:new Date().toISOString(),
+  delivery_status:customerEmail==='test@example.com'?'Setup test — no customer report needs to be sent':'New request — awaiting manual delivery',
+ }: {email:customerEmail,type,result,reportUrl:reportUrl.href,website:emailForm.querySelector('[name="website"]').value,deliveryMode:'manual'};
+ let received=false;
  try{
-  const response=await fetch(emailEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:emailForm.querySelector('input[type="email"]').value,type:sourceCode+'-'+sourceVariant,result,reportUrl:location.href,website:emailForm.querySelector('[name="website"]').value})});
-  if(!response.ok)throw new Error('Delivery failed');
-  const delivery=await response.json();if(delivery.sent!==true)throw new Error('Delivery not confirmed');
-  emailStatus.textContent='Your report is on its way. Please check your inbox and spam folder.';
- }catch{emailStatus.textContent='Your email could not be sent. Please try again or download your report directly.';}
- finally{button.disabled=false;}
+  const response=await fetch(emailEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(request)});
+  if(!response.ok)throw new Error('Request failed');
+  const submission=await response.json();
+  received=formSubmit?(submission.success===true||submission.success==='true'):submission.received===true;
+  if(!received)throw new Error(submission.message||'Request not confirmed');
+  emailStatus.textContent='Thank you! Your request has been received. Our team will email your report after reviewing your results.';
+  button.textContent='Request received';
+  emailForm.querySelector('input[type="email"]').disabled=true;
+ }catch(error){emailStatus.textContent='Your request could not be submitted. '+(error.message==='Failed to fetch'?'Please check your connection and try again.':String(error.message).slice(0,180));}
+ finally{button.disabled=received;}
 });
