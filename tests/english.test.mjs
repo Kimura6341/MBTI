@@ -4,25 +4,18 @@ import fs from 'node:fs';
 import {englishQuestions,calculateEnglish,axisDefinitions} from '../dist/english-model.mjs';
 import {englishTypes} from '../dist/english-types.mjs';
 import {traitGeometry} from '../dist/trait-geometry.mjs';
-test('bipolar colored segments extend from the midpoint toward the winning pole',()=>{
+test('bipolar markers move independently over a fully colored track',()=>{
  for(const pct of [50,51,53,58,67,74,75,83,100])for(const left of [true,false]){
   const g=traitGeometry(pct,left);
   assert.equal(g.marker,left?100-pct:pct);
-  assert.equal(left?g.fillStart:g.fillStart+g.fillWidth,g.marker);
-  assert.equal(left?g.fillStart+g.fillWidth:g.fillStart,50);
-  assert.equal(g.fillWidth,pct-50);
-  assert.ok(g.fillStart>=0&&g.fillStart+g.fillWidth<=100);
+  assert.equal(g.fillStart,0);
+  assert.equal(g.fillWidth,100);
  }
  assert.equal(traitGeometry(100,true).marker,0);
  assert.equal(traitGeometry(100,false).marker,100);
- for(const [pct,left,expected] of [
-  [51,true,{marker:49,fillStart:49,fillWidth:1}],
-  [75,false,{marker:75,fillStart:50,fillWidth:25}],
-  [74,true,{marker:26,fillStart:26,fillWidth:24}],
-  [50,true,{marker:50,fillStart:50,fillWidth:0}],
-  [100,true,{marker:0,fillStart:0,fillWidth:50}],
-  [100,false,{marker:100,fillStart:50,fillWidth:50}],
- ])assert.deepEqual(traitGeometry(pct,left),expected);
+ for(const [pct,left,marker] of [[58,true,42],[58,false,58],[100,true,0],[100,false,100],[50,true,50]]){
+  assert.deepEqual(traitGeometry(pct,left),{marker,fillStart:0,fillWidth:100});
+ }
 });
 test('English source contains 60 unique questions across five dimensions',()=>{assert.equal(englishQuestions.length,60);assert.equal(new Set(englishQuestions.map(q=>q.id)).size,60);for(const [axis] of axisDefinitions)assert.equal(englishQuestions.filter(q=>q.axis===axis).length,12);});
 test('all 32 answer profiles produce the intended type and identity',()=>{for(const code of Object.keys(englishTypes))for(const variant of ['A','T']){const target=[...code,variant],answers={};for(const q of englishQuestions){const i=axisDefinitions.findIndex(a=>a[0]===q.axis);answers[q.id]=(target[i]===q.axis[0]?-3:3)*q.direction;}const r=calculateEnglish(answers);assert.equal(r.code,code);assert.equal(r.variant,variant);assert.ok(r.dimensions.every(d=>d.pct===100));}});
@@ -34,4 +27,16 @@ test('all 32 full reports use the matching source edition',()=>{for(const code o
 test('all direction keys agree with the supplied independent specification',()=>{const keys=JSON.parse(fs.readFileSync(new URL('../content/algorithm-key.json',import.meta.url),'utf8'));assert.equal(keys.length,60);for(const key of keys){const q=englishQuestions.find(q=>q.id===`en-${key.order}`);assert.equal(q.order,key.order);assert.equal(q.axis.replace('/',''),key.axis);assert.equal(q.agreePole,key.agreePole);assert.equal(q.direction,key.agreePole===key.axis[0]?1:-1);assert.equal(q.weight,1);}});
 test('supplied real-site fixture: all Disagree (+3) yields ISTP-A',()=>{const result=calculateEnglish(Object.fromEntries(englishQuestions.map(q=>[q.id,3])));assert.equal(result.code+'-'+result.variant,'ISTP-A');assert.deepEqual(result.dimensions.map(d=>d.sum),[-6,-6,6,-6,6]);});
 test('zero-score rule follows specification while keeping boundary flags',()=>{const result=calculateEnglish(Object.fromEntries(englishQuestions.map(q=>[q.id,0])));assert.equal(result.code+'-'+result.variant,'ENTJ-A');assert.ok(result.dimensions.every(d=>d.boundary&&d.pct===50&&d.sum===0));});
-test('agree is negative; reversing one answer reverses only its own axis',()=>{const answers=Object.fromEntries(englishQuestions.map(q=>[q.id,0]));answers['en-0']=-3;const a=calculateEnglish(answers);answers['en-0']=3;const b=calculateEnglish(answers);assert.equal(a.dimensions[0].sum,3);assert.equal(b.dimensions[0].sum,-3);assert.deepEqual(a.dimensions.slice(1),b.dimensions.slice(1));});
+test('agree is negative; reversing any answer affects only its own axis',()=>{
+ for(const question of englishQuestions){
+  const answers=Object.fromEntries(englishQuestions.map(q=>[q.id,0]));
+  answers[question.id]=-3;const a=calculateEnglish(answers);
+  answers[question.id]=3;const b=calculateEnglish(answers);
+  for(const [i,[axis]] of axisDefinitions.entries()){
+   if(axis===question.axis){
+    assert.equal(a.dimensions[i].sum,3*question.direction);
+    assert.equal(b.dimensions[i].sum,-3*question.direction);
+   }else assert.deepEqual(a.dimensions[i],b.dimensions[i]);
+  }
+ }
+});

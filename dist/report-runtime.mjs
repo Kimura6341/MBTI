@@ -1,4 +1,4 @@
-import {traitGeometry} from './trait-geometry.mjs?v=bce2bdff0dec';
+import {traitGeometry} from './trait-geometry.mjs?v=f0fce34050ae';
 const sourceCode=document.body.dataset.personaType;
 const sourceVariant=document.body.dataset.personaVariant||'A';
 const labels=[['Energy','Extraverted','Introverted'],['Mind','Intuitive','Observant'],['Nature','Thinking','Feeling'],['Tactics','Judging','Prospecting'],['Identity','Assertive','Turbulent']];
@@ -42,12 +42,7 @@ tabs.forEach((tab,i)=>{
   const label=tab.querySelector('.sp-barlabel .font-body');if(label){label.replaceChildren();const strong=document.createElement('strong');strong.textContent=d.pct+'%';label.append(strong,` ${d.trait}`);}
   const bar=tab.querySelector('[data-testid="bar"]'),dot=tab.querySelector('[data-testid="dot"]'),track=tab.querySelector('[data-testid="progressbar"]');
   const geometry=traitGeometry(d.pct,d.trait===labels[i][1]);
-  if(bar){for(const [key,value] of Object.entries({position:'absolute',left:geometry.fillStart+'%',right:'auto',top:'0',bottom:'0',width:geometry.fillWidth+'%',margin:'0','border-radius':geometry.marker<50?'12px 0 0 12px':'0 12px 12px 0',transition:'none'}))bar.style.setProperty(key,value,'important');}
-  if(track){
-   const midpoint=document.createElement('span');midpoint.className='persona-trait-midpoint';midpoint.setAttribute('aria-hidden','true');
-   midpoint.style.cssText='position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:currentColor;opacity:.35;pointer-events:none;z-index:1';
-   track.append(midpoint);
-  }
+  if(bar){for(const [key,value] of Object.entries({position:'absolute',left:geometry.fillStart+'%',right:'auto',top:'0',bottom:'0',width:geometry.fillWidth+'%',margin:'0','border-radius':'inherit',transition:'none'}))bar.style.setProperty(key,value,'important');}
   if(dot&&track){
    // The marker must use the full track, not the resized colored segment.
    track.append(dot);
