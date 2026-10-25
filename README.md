@@ -27,7 +27,7 @@ The default offline output is `../../outputs/persona-lab/`. To choose another fo
 
 ## Edit report content and images
 
-The homepage is a separate landing view modeled on the owner-authorized reference homepage, with desktop/mobile camping illustrations. `dist/home.mjs` and `dist/home.css` own its structure and layout. It uses this questionnaire's real counts rather than copying the reference site's traffic or accuracy statistics. The test remains available at `#test`; report samples and type previews stay separate from personal answers.
+The homepage is a separate landing view modeled on the owner-authorized reference homepage, with desktop/mobile camping illustrations. The English homepage uses `dist/english-home.mjs` and `dist/home-reference.css`. Its four metric cards reproduce the supplied reference screenshot's static figures and labels (100K+, 200M+, 1.58B+, 91.2%); these are reference content rather than live measurements of this site. The test remains available at `#test`; report samples and type previews stay separate from personal answers.
 
 Homepage SVG sources are documented in `dist/assets/home/sources.json`. Run `python build-home-assets.py` after replacing those assets.
 

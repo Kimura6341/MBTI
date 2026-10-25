@@ -8,7 +8,7 @@ markup=re.search(r'<main\b.*?</main>',source,re.S).group()
 markup=re.sub(r'^<main\b','<div',markup).replace('</main>','</div>')
 markup=re.sub(r'\s+v-[\w:.-]+(?:="[^"]*")?','',markup)
 markup=markup.replace('Only 10 minutes to get a “freakishly accurate” description of who you are and why you do things the way you do.','Only 10 minutes to explore who you are and why you do things the way you do.')
-metrics=iter([('60','English questions'),('16','Personality types'),('32','Full report editions'),('10','Minutes to explore')])
+metrics=iter([('100K+','Tests taken today'),('200M+','Tests taken in United States'),('1.58B+','Total tests taken'),('91.2%','Accuracy rating')])
 def metric(match):
  number,label=next(metrics)
  return re.sub(r'(<dd\b[^>]*>).*?(</dd>)',lambda m:m[1]+label+m[2],re.sub(r'(<dt\b[^>]*>).*?(</dt>)',lambda m:m[1]+number+m[2],match[0],flags=re.S),flags=re.S)
@@ -34,7 +34,7 @@ replacements={
 for old,new in replacements.items():markup=markup.replace(old,new)
 carousel=''
 markup=re.sub(r'<section id="testimonials".*?</section>',carousel,markup,flags=re.S)
-assert 'Benny' not in markup and '91.2%' not in markup
+assert 'Benny' not in markup and '91.2%' in markup
 print('Remaining original URLs:',re.findall(r'https://www\.16personalities\.com/[^\s\"<>]+',markup))
 module='''import {homeAssets} from './home-assets.mjs';
 import {homeIllustrations} from './home-illustrations.mjs';

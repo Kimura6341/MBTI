@@ -1,5 +1,5 @@
 import {englishQuestions,calculateEnglish} from './english-model.mjs?v=f351344ebc7f';
-import {englishHomeMarkup,bindEnglishHome} from './english-home.mjs?v=953f1bf2f421';
+import {englishHomeMarkup,bindEnglishHome} from './english-home.mjs?v=7374702d1f09';
 const root=document.querySelector('#app'),key='persona-spectrum-english-60-v2';
 let answers={},page=0;
 try{let saved=JSON.parse(localStorage.getItem(key));if(!saved){const previous=JSON.parse(localStorage.getItem('persona-spectrum-english-60-v1'));if(previous){saved={...previous,answers:Object.fromEntries(Object.entries(previous.answers||{}).map(([id,value])=>[id,-value]))};localStorage.setItem(key,JSON.stringify(saved));}}if(saved){answers=Object.fromEntries(englishQuestions.filter(q=>Number.isInteger(saved.answers?.[q.id])&&Math.abs(saved.answers[q.id])<=3).map(q=>[q.id,saved.answers[q.id]]));page=Math.min(9,Math.max(0,Number.isInteger(saved.page)?saved.page:0));}}catch{}
