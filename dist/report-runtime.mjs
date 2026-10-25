@@ -1,6 +1,8 @@
 import {traitGeometry} from './trait-geometry.mjs?v=f0fce34050ae';
 const sourceCode=document.body.dataset.personaType;
 const sourceVariant=document.body.dataset.personaVariant||'A';
+// Our header scrolls away, so the sticky directory needs no reserved header space.
+document.documentElement.style.setProperty('--sticky-sidebar-top','0px');
 const labels=[['Energy','Extraverted','Introverted'],['Mind','Intuitive','Observant'],['Nature','Thinking','Feeling'],['Tactics','Judging','Prospecting'],['Identity','Assertive','Turbulent']];
 let result=null;
 try{if(location.hash.startsWith('#result=')){const candidate=JSON.parse(decodeURIComponent(location.hash.slice(8)));if(candidate.code===sourceCode&&candidate.variant===sourceVariant&&candidate.dimensions?.length===5&&candidate.dimensions.every((d,i)=>Number.isFinite(d.pct)&&d.pct>=50&&d.pct<=100&&labels[i].slice(1).includes(d.trait)))result=candidate;}}catch{}
