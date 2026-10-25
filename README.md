@@ -70,3 +70,6 @@ Algorithm reference: content/algorithm-spec.md and content/algorithm-key.json pr
 
 
 Homepage: the English landing page now adapts the reference homepage's original responsive layout, angular section dividers, illustrations, and Inter / Red Hat Display fonts. Embedded SVGs and fonts work offline. The four metric cards show this site's actual 60 questions, 16 types, 32 report editions, and approximate completion time. The testimonials / personality-card carousel section is omitted at the user’s request; adjacent calls to action lead to the assessment. Persona Spectrum branding and the previously simplified navigation are retained. The homepage stylesheet is disabled on the questionnaire to keep the layouts independent.
+
+
+Questionnaire interaction: pointer selection saves the answer, then smoothly centers the next question. The end of a group scrolls to its navigation controls and never submits automatically. Keyboard selection remains in the current question; reduced-motion preferences disable smooth animation. Pending navigation is cancelled on new input, manual scrolling, view changes, and form submission. Transparent native radio inputs and visible circles consistently use a pointer cursor, with hover and focus feedback.
