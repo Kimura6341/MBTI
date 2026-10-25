@@ -22,7 +22,7 @@ const turbulent='Turbulent individuals are self-conscious and sensitive to stres
 const repositionLabels=[];
 function showTrait(index){
  const tab=tabs[index],d=result?.dimensions[index],panel=document.querySelector('.traits__desc[role="tabpanel"]');
- tabs.forEach((t,i)=>{t.setAttribute('aria-selected',String(i===index));t.classList.toggle('is--active',i===index);t.tabIndex=i===index?0:-1;});
+ tabs.forEach((t,i)=>{const active=i===index;t.setAttribute('aria-selected',String(active));t.classList.toggle('is--active',active);t.classList.toggle('tw-bg-transparent',!active);t.classList.toggle('dark:huge:tw-bg-ds-dark-2',active);t.tabIndex=active?0:-1;});
  if(!panel)return;panel.setAttribute('aria-labelledby',tab.id);
  const heading=panel.querySelector('.desc__value'),label=panel.querySelector('.desc__label');
  if(label)label.textContent=labels[index][0];
