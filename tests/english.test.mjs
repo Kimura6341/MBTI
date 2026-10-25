@@ -3,6 +3,17 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {englishQuestions,calculateEnglish,axisDefinitions} from '../dist/english-model.mjs';
 import {englishTypes} from '../dist/english-types.mjs';
+import {traitGeometry} from '../dist/trait-geometry.mjs';
+test('bipolar markers and colored segments meet at the same coordinate',()=>{
+ for(const pct of [50,58,67,83,100])for(const left of [true,false]){
+  const g=traitGeometry(pct,left);
+  assert.equal(g.marker,left?100-pct:pct);
+  assert.equal(left?g.fillStart:g.fillStart+g.fillWidth,g.marker);
+  assert.ok(g.fillStart>=0&&g.fillStart+g.fillWidth<=100);
+ }
+ assert.equal(traitGeometry(100,true).marker,0);
+ assert.equal(traitGeometry(100,false).marker,100);
+});
 test('English source contains 60 unique questions across five dimensions',()=>{assert.equal(englishQuestions.length,60);assert.equal(new Set(englishQuestions.map(q=>q.id)).size,60);for(const [axis] of axisDefinitions)assert.equal(englishQuestions.filter(q=>q.axis===axis).length,12);});
 test('all 32 answer profiles produce the intended type and identity',()=>{for(const code of Object.keys(englishTypes))for(const variant of ['A','T']){const target=[...code,variant],answers={};for(const q of englishQuestions){const i=axisDefinitions.findIndex(a=>a[0]===q.axis);answers[q.id]=(target[i]===q.axis[0]?-3:3)*q.direction;}const r=calculateEnglish(answers);assert.equal(r.code,code);assert.equal(r.variant,variant);assert.ok(r.dimensions.every(d=>d.pct===100));}});
 test('different strengths lead to distinct dimension scores, not fixed percentages',()=>{const answers=Object.fromEntries(englishQuestions.map(q=>[q.id,-q.direction*([0,1,2,3,1][axisDefinitions.findIndex(a=>a[0]===q.axis)])]));assert.deepEqual(calculateEnglish(answers).dimensions.map(d=>d.pct),[50,67,83,100,67]);assert.throws(()=>calculateEnglish({}));});

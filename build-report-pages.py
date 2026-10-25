@@ -2,7 +2,12 @@ from pathlib import Path
 import re,html,hashlib
 ROOT=Path(__file__).parent
 source=Path('E:/小红书/1/full')
-runtime_version=hashlib.sha256((ROOT/'dist/report-runtime.mjs').read_bytes()).hexdigest()[:12]
+geometry_version=hashlib.sha256((ROOT/'dist/trait-geometry.mjs').read_bytes()).hexdigest()[:12]
+runtime_path=ROOT/'dist/report-runtime.mjs'
+runtime=runtime_path.read_text(encoding='utf-8')
+runtime=re.sub(r"'\./trait-geometry\.mjs(?:\?v=[^']+)?'","'./trait-geometry.mjs?v="+geometry_version+"'",runtime)
+runtime_path.write_text(runtime,encoding='utf-8')
+runtime_version=hashlib.sha256(runtime_path.read_bytes()).hexdigest()[:12]
 sources=list(source.glob('*-A-*.html'))+list(Path('E:/小红书/1/159').glob('*-T-*.html'))
 assert len(sources)==32
 for f in sources:
