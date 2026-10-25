@@ -58,7 +58,11 @@ tabs.forEach((tab,i)=>{
   tab.querySelectorAll('.traitbar__label').forEach(el=>{const active=el.textContent.trim()===d.trait;el.classList.toggle('traitbar__label--active',active);el.classList.toggle('traitbar__label--inactive',!active);});
  });
 document.fonts?.ready.then(()=>repositionLabels.forEach(position=>position()));
-tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>showTrait(i));tab.addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','ArrowRight','ArrowLeft'].includes(e.key)){e.preventDefault();const next=(i+(['ArrowDown','ArrowRight'].includes(e.key)?1:4))%5;showTrait(next);tabs[next].focus();}});});showTrait(0);
+tabs.forEach((tab,i)=>{
+ tab.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'||event.pointerType==='pen')showTrait(i);});
+ tab.addEventListener('click',()=>showTrait(i));
+ tab.addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','ArrowRight','ArrowLeft'].includes(e.key)){e.preventDefault();const next=(i+(['ArrowDown','ArrowRight'].includes(e.key)?1:4))%5;showTrait(next);tabs[next].focus();}});
+});showTrait(0);
 document.addEventListener('click',event=>{
  const button=event.target.closest('button');if(!button)return;
  const text=(button.textContent||'').trim();
