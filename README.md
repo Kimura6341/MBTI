@@ -76,3 +76,6 @@ Questionnaire interaction: first-time pointer selection saves the answer, then s
 
 
 Report charts use a shared bipolar coordinate mapping: a left-pole percentage p maps to x=100-p, and a right-pole percentage p maps to x=p. The marker is positioned against the full track with its center at x; the colored segment ends at the same coordinate. Labels track the marker and clamp at the track edges, recalculating on resize and font load. Native sample previews and scored results share this renderer.
+
+
+Report email entry points: all 32 report pages have a large email-download banner, a $19.99 crossed-out / limited-time free offer, and no inline Email / Compare strip. The scoring notice remains in the footer. Configure content/report-delivery.json with a deployed HTTPS mail endpoint, then regenerate the report pages. The endpoint receives POST JSON with email, type, result, reportUrl, and website (honeypot); it must validate inputs, restrict the allowed site origin, rate-limit requests, keep provider secrets server-side, and return {"sent": true} only after provider acceptance. A successful HTTP response alone does not display success. No endpoint is configured yet, so email submission is explicitly disabled and a direct HTML download remains available. No email is stored or transmitted in that state.
