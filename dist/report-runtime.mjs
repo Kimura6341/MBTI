@@ -1,4 +1,5 @@
 import {traitGeometry} from './trait-geometry.mjs?v=f0fce34050ae';
+import {answerRecordKey,matchingAnswerRecord,answerExportUrl} from './answer-workbook.mjs?v=35d196784845';
 const sourceCode=document.body.dataset.personaType;
 const sourceVariant=document.body.dataset.personaVariant||'A';
 // Our header scrolls away, so the sticky directory needs no reserved header space.
@@ -84,6 +85,8 @@ emailForm.addEventListener('submit',async event=>{
  const customerEmail=emailForm.querySelector('input[type="email"]').value.trim();
  const type=sourceCode+'-'+sourceVariant;
  const reportUrl=new URL('reports/'+type+'.html','https://kimura6341.github.io/MBTI/');if(result)reportUrl.hash='result='+encodeURIComponent(JSON.stringify(result));
+ let record=null;try{record=matchingAnswerRecord(result,sessionStorage.getItem(answerRecordKey));}catch{}
+ const requestedAt=new Date().toISOString();
  const scores=result?result.dimensions.map(d=>`${d.label}: ${d.pct}% ${d.trait}`).join(' | '):'Not assessed — report preview request';
  const formSubmit=new URL(emailEndpoint).hostname==='formsubmit.co';
  const request=formSubmit?{
@@ -96,13 +99,15 @@ emailForm.addEventListener('submit',async event=>{
   personality_type:type,
   assessment_scores:scores,
   report_link:reportUrl.href,
-  requested_at:new Date().toISOString(),
+  requested_at:requestedAt,
+  download_answers_excel:answerExportUrl({email:customerEmail,type,result,record,requestedAt}),
+  answer_record:record?'60 / 60 answers — download Excel using the link above':'No answer record available — preview or older assessment',
   delivery_status:customerEmail==='test@example.com'?'Setup test — no customer report needs to be sent':'New request — awaiting manual delivery',
  }: {email:customerEmail,type,result,reportUrl:reportUrl.href,website:emailForm.querySelector('[name="website"]').value,deliveryMode:'manual'};
  let received=false;
  try{
-  const response=await fetch(emailEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(request)});
-  if(!response.ok)throw new Error('Request failed');
+  const response=await fetch(emailEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(formSubmit?request:{...request,answers:record?.answers||null})});
+  if(!response.ok)throw new Error(`Request failed (${response.status})`);
   const submission=await response.json();
   received=formSubmit?(submission.success===true||submission.success==='true'):submission.received===true;
   if(!received)throw new Error(submission.message||'Request not confirmed');

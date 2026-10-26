@@ -14,6 +14,13 @@ const englishHome=withoutVersion(await fs.readFile('dist/english-home.mjs','utf8
 await fs.writeFile('dist/english-home.mjs',englishHome);
 const englishModel=withoutVersion(await fs.readFile('dist/english-model.mjs','utf8')).replace("'./english-questions.mjs'",`'./english-questions.mjs?v=${digest(englishQuestions)}'`);
 await fs.writeFile('dist/english-model.mjs',englishModel);
+const answerWorkbook=withoutVersion(await fs.readFile('dist/answer-workbook.mjs','utf8')).replace("'./english-model.mjs'",`'./english-model.mjs?v=${digest(englishModel)}'`);
+await fs.writeFile('dist/answer-workbook.mjs',answerWorkbook);
+const answerExport=withoutVersion(await fs.readFile('dist/answer-export.mjs','utf8')).replace("'./answer-workbook.mjs'",`'./answer-workbook.mjs?v=${digest(answerWorkbook)}'`);
+await fs.writeFile('dist/answer-export.mjs',answerExport);
+let exportHTML=withoutVersion(await fs.readFile('dist/answer-export.html','utf8'));
+exportHTML=exportHTML.replace('./answer-export.mjs','./answer-export.mjs?v='+digest(answerExport));
+await fs.writeFile('dist/answer-export.html',exportHTML);
 const englishApp=withoutVersion(await fs.readFile('dist/english-app.mjs','utf8')).replace("'./english-model.mjs'",`'./english-model.mjs?v=${digest(englishModel)}'`).replace("'./english-home.mjs'",`'./english-home.mjs?v=${digest(englishHome)}'`);
 await fs.writeFile('dist/english-app.mjs',englishApp);
 for(const name of ['english-app.mjs','english.css','home-reference.css']){
@@ -25,7 +32,7 @@ await fs.writeFile('dist/home.mjs',source['home.mjs']);
 await fs.writeFile('dist/app.mjs',source['app.mjs']);
 await fs.writeFile('dist/index.html',html);
 const traitGeometry=await fs.readFile('dist/trait-geometry.mjs','utf8');
-const reportRuntime=withoutVersion(await fs.readFile('dist/report-runtime.mjs','utf8')).replace("'./trait-geometry.mjs'",`'./trait-geometry.mjs?v=${digest(traitGeometry)}'`);
+const reportRuntime=withoutVersion(await fs.readFile('dist/report-runtime.mjs','utf8')).replace("'./trait-geometry.mjs'",`'./trait-geometry.mjs?v=${digest(traitGeometry)}'`).replace("'./answer-workbook.mjs'",`'./answer-workbook.mjs?v=${digest(answerWorkbook)}'`);
 await fs.writeFile('dist/report-runtime.mjs',reportRuntime);
 for(const directory of ['dist','dist/reports']){
  for(const name of await fs.readdir(directory)){

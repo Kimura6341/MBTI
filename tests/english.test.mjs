@@ -4,6 +4,32 @@ import fs from 'node:fs';
 import {englishQuestions,calculateEnglish,axisDefinitions} from '../dist/english-model.mjs';
 import {englishTypes} from '../dist/english-types.mjs';
 import {traitGeometry} from '../dist/trait-geometry.mjs';
+import {matchingAnswerRecord,answerWorkbookRows,createAnswerWorkbook,answerExportUrl,readAnswerExport} from '../dist/answer-workbook.mjs';
+
+test('answer attachments preserve every selected value and reject stale or altered records',()=>{
+ const answers=Object.fromEntries(englishQuestions.map((q,i)=>[q.id,i%7-3]));
+ const result=calculateEnglish(answers),completedAt='2026-10-26T01:00:00Z';
+ const raw=JSON.stringify({answers,result,completedAt}),record=matchingAnswerRecord(result,raw);
+ assert.deepEqual(record,{answers,completedAt});
+ const rows=answerWorkbookRows({email:'test@example.com',type:result.code+'-'+result.variant,result,record,requestedAt:completedAt,reportUrl:'https://example.com'});
+ assert.equal(rows.answers.length,61);
+ for(const [i,q] of englishQuestions.entries()){assert.equal(rows.answers[i+1][1],q.text);assert.equal(rows.answers[i+1][4],answers[q.id]);}
+ assert.equal(rows.answers[4][2],'Neither agree nor disagree');
+ const data={email:'test+&=中@example.com',type:result.code+'-'+result.variant,result,record,requestedAt:completedAt};
+ const url=new URL(answerExportUrl(data));assert.equal(url.search,'');
+ const decoded=readAnswerExport(url.hash);assert.deepEqual(decoded.record,record);assert.equal(decoded.email,data.email);assert.deepEqual(decoded.result,result);
+ assert.throws(()=>readAnswerExport(url.hash.replace('record=','invalid=')));
+ assert.throws(()=>readAnswerExport('#record='+encodeURIComponent(JSON.stringify({v:1,email:'x',type:'INTP-A',requestedAt:completedAt,answers:[3]}))));
+ assert.equal(matchingAnswerRecord(null,raw),null);
+ assert.equal(matchingAnswerRecord({...result,variant:result.variant==='A'?'T':'A'},raw),null);
+ assert.equal(matchingAnswerRecord(result,JSON.stringify({answers:{...answers,'en-0':99},result})),null);
+ assert.equal(matchingAnswerRecord(result,'broken'),null);
+ const missing=answerWorkbookRows({email:'=HYPERLINK("bad")',type:'INTP-A',record:null});
+ assert.equal(missing.answers.length,2);
+ const bytes=createAnswerWorkbook({email:'=HYPERLINK("bad")',type:'INTP-A',result,record,requestedAt:completedAt,reportUrl:'https://example.com'});
+ assert.deepEqual([...bytes.slice(0,4)],[80,75,3,4]);
+ const xml=new TextDecoder().decode(bytes);assert.ok(xml.includes('t="inlineStr"'));assert.ok(!xml.includes('<f>'));assert.ok(xml.includes('非常同意'));
+});
 test('bipolar markers move independently over a fully colored track',()=>{
  for(const pct of [50,51,53,58,67,74,75,83,100])for(const left of [true,false]){
   const g=traitGeometry(pct,left);
