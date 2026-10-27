@@ -42,7 +42,24 @@ Python helper scripts use only the standard library. Rebuild the offline HTML af
 
 ## Data and email capture
 
-Answers remain in browser localStorage. Download buttons require a valid email before downloading the text report. Email, type code, sample flag, and timestamp are saved only in that browser under `persona-spectrum-report-emails`. There is no backend collection, outbound email, subscription, or analytics integration. Resetting local progress also removes saved email records.
+The online homepage and all report HTML pages use PostHog for anonymous usage analytics with the supplied public project token and US ingestion host. We do not call `identify` or attach customer emails to analytics. The supplied `api_host`, `defaults: '2026-05-30'`, and `person_profiles: 'identified_only'` remain unchanged in `content/posthog-snippet.html`. `npm run build:web` injects that exact snippet and the separate privacy bootstrap into each page's head, including legacy report redirects. Report source regeneration is followed by `npm run build:web` to reapply instrumentation.
+
+All inputs (including email, honeypot, and questionnaire controls) have `ph-no-capture`; dynamic inputs are also protected. Autocapture is limited to link/button clicks, with text and attributes masked. Session recording is disabled and IP collection is disabled in the SDK configuration. Query strings and private result/export fragments are removed from analytics URL properties. PostHog's anonymous browser/session identifiers and normal technical event metadata still apply; no input values or individual answer records are sent to PostHog.
+
+The bootstrap disables automatic pageviews and records one initial `$pageview` plus one per `hashchange`, so hash routes such as `#test` work without duplicate history tracking. Custom events only include these application properties:
+
+| Event | Properties / trigger |
+| --- | --- |
+| `test_started` | None; entering the test, including a direct `#test` visit, but not internal question-group renders |
+| `test_page_completed` | `page` (1–10); valid group submission, including revisits |
+| `test_completed` | `type`, `variant`, `ei`, `ns`, `tf`, `jp`, `at`; a completed assessment with a conclusive result |
+| `report_viewed` | `type`, `variant`; opening a report, including previews |
+| `report_download_clicked` | None; clicking a report download/email entry point |
+| `email_form_submitted` | None; submitting a valid email request, before delivery confirmation |
+
+Dimension percentages are the winning pole's strength (50–100), matching the displayed report; they are not always the left pole's percentage. Exact ties retain the existing inconclusive-result behavior and do not emit `test_completed` with a fabricated final type. Event properties never include the email or individual answers. Analytics failures cannot block the test or report request.
+
+Assessment answers remain in browser localStorage, with the completed answer snapshot in sessionStorage. Separately from analytics, a customer who submits a report request explicitly sends their email, result and private answer-export link to the configured FormSubmit endpoint for manual report fulfillment. This does not automatically email the customer a report. Offline builds remove the entire PostHog snippet and bootstrap from the homepage and every report, replace the online analytics notice, and contain no PostHog loader or token.
 
 ## Scoring
 
@@ -61,7 +78,7 @@ Original-copy and illustration assets were supplied or collected under the proje
 
 The active site uses 60 supplied English questions. Each of five dimensions has 12 equally weighted items, with reverse-keyed directions from the supplied CSV. This is explicitly approximate scoring, not the proprietary NERIS algorithm. Exact ties are reported as inconclusive rather than assigned a type.
 
-Thirty-two supplied full HTML reports are served at dist/reports/TYPE-A.html and dist/reports/TYPE-T.html, retaining their original embedded styling, illustrations, and free chapters. Both -A and -T source editions are available. The calculated identity selects its matching source report; neither edition is produced by relabeling the other. Legacy TYPE.html links redirect to the matching edition. Saved sample percentages are replaced by the current assessment values. Paid services are not connected. The email download form stores its value only in the browser and downloads HTML; no email is sent.
+Thirty-two supplied full HTML reports are served at dist/reports/TYPE-A.html and dist/reports/TYPE-T.html, retaining their original embedded styling, illustrations, and free chapters. Both -A and -T source editions are available. The calculated identity selects its matching source report; neither edition is produced by relabeling the other. Legacy TYPE.html links redirect to the matching edition. Saved sample percentages are replaced by the current assessment values. Paid services are not connected. The report request form sends the customer-approved data to FormSubmit for manual fulfillment; its entered email and answers are excluded from PostHog analytics.
 
 Run npm test, npm run build:web, and npm run build:offline. Offline output includes an entry HTML and a companion reports folder; keep them together. Source import helpers read the user-supplied files from their original locations; generated assets are committed for deployment.
 

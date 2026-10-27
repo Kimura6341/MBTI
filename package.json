@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test --experimental-test-isolation=none tests/model.test.mjs tests/report.test.mjs tests/type-stories.test.mjs tests/reference-report.test.mjs tests/english.test.mjs",
+    "test": "node --test --experimental-test-isolation=none tests/model.test.mjs tests/report.test.mjs tests/type-stories.test.mjs tests/reference-report.test.mjs tests/english.test.mjs tests/analytics.test.mjs",
     "dev": "node preview.mjs",
     "build:offline": "node build-web.mjs && node build-offline.mjs",
     "build:web": "node build-web.mjs"

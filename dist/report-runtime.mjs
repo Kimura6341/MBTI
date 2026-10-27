@@ -1,7 +1,9 @@
+import {trackEvent} from './analytics-events.mjs?v=0ef101c2d544';
 import {traitGeometry} from './trait-geometry.mjs?v=f0fce34050ae';
 import {answerRecordKey,matchingAnswerRecord,answerExportUrl} from './answer-workbook.mjs?v=35d196784845';
 const sourceCode=document.body.dataset.personaType;
 const sourceVariant=document.body.dataset.personaVariant||'A';
+trackEvent('report_viewed',{type:sourceCode,variant:sourceVariant});
 // Our header scrolls away, so the sticky directory needs no reserved header space.
 document.documentElement.style.setProperty('--sticky-sidebar-top','0px');
 const labels=[['Energy','Extraverted','Introverted'],['Mind','Intuitive','Observant'],['Nature','Thinking','Feeling'],['Tactics','Judging','Prospecting'],['Identity','Assertive','Turbulent']];
@@ -69,9 +71,9 @@ tabs.forEach((tab,i)=>{
 document.addEventListener('click',event=>{
  const button=event.target.closest('button');if(!button)return;
  const text=(button.textContent||'').trim();
- if(button.matches('[data-email-report]')){event.preventDefault();document.querySelector('#persona-email').showModal();return;}
+ if(button.matches('[data-email-report]')){trackEvent('report_download_clicked');event.preventDefault();document.querySelector('#persona-email').showModal();return;}
  if(/unlock|upgrade|compare|get access/i.test(text)){event.preventDefault();alert('This preview includes the supplied free report. Paid features are not connected.');}
- if(/download.*report|^email(?: results)?$/i.test(text)){event.preventDefault();document.querySelector('#persona-email').showModal();}
+ if(/download.*report|^email(?: results)?$/i.test(text)){trackEvent('report_download_clicked');event.preventDefault();document.querySelector('#persona-email').showModal();}
 });
 const chapterLinks=[...document.querySelectorAll('nav a[href^="#"]')];
 const observer=new IntersectionObserver(entries=>{const active=entries.filter(e=>e.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top)[0];if(active)chapterLinks.forEach(a=>a.closest('li')?.classList.toggle('active',a.hash==='#'+active.target.id));},{rootMargin:'-5% 0px -65% 0px'});
@@ -80,7 +82,8 @@ const emailForm=document.querySelector('#persona-email form'),emailStatus=docume
 const emailEndpoint=document.querySelector('meta[name="persona-email-endpoint"]')?.content||'';
 if(!emailEndpoint||location.protocol==='file:'){emailStatus.textContent=location.protocol==='file:'?'Open the online site to request your report.':'Report requests are not open yet. Please try again later.';emailForm.querySelector('[type="submit"]').disabled=true;}
 emailForm.addEventListener('submit',async event=>{
- event.preventDefault();if(!emailEndpoint)return;
+ event.preventDefault();if(!emailEndpoint||!emailForm.reportValidity())return;
+ trackEvent('email_form_submitted');
  const button=emailForm.querySelector('[type="submit"]');button.disabled=true;emailStatus.textContent='Submitting your request…';
  const customerEmail=emailForm.querySelector('input[type="email"]').value.trim();
  const type=sourceCode+'-'+sourceVariant;

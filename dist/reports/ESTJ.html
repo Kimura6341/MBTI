@@ -1,1 +1,94 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><title>Opening report</title><body><a href="ESTJ-A.html">Open report</a><script>let v="A";try{if(location.hash.startsWith("#result=")){const r=JSON.parse(decodeURIComponent(location.hash.slice(8)));if(r.variant==="T")v="T";}}catch{}location.replace("./ESTJ-"+v+".html"+location.hash);</script></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Opening report</title><!-- persona-analytics:start -->
+<script>
+(() => {
+  const schema = {
+    test_started: [],
+    test_page_completed: ['page'],
+    test_completed: ['type', 'variant', 'ei', 'ns', 'tf', 'jp', 'at'],
+    report_viewed: ['type', 'variant'],
+    report_download_clicked: [],
+    email_form_submitted: [],
+  };
+  // Never send query strings, scored-result fragments, or private export links.
+  const safeURL = value => {
+    try {
+      const url = new URL(value, location.href);
+      url.search = '';
+      if (!/^#[a-z][a-z0-9-]*$/i.test(url.hash)) url.hash = '';
+      return url.href;
+    } catch { return ''; }
+  };
+  const cleanEvent = event => {
+    if (!event) return null;
+    const props = event.properties || {};
+    for (const key of Object.keys(props)) {
+      if (key === '$set' || key === '$set_once') delete props[key];
+      else if (/url|referrer|pathname/i.test(key) && typeof props[key] === 'string') {
+        props[key] = key.includes('pathname') ? props[key].split(/[?#]/)[0] : safeURL(props[key]);
+      }
+    }
+    event.properties = props;
+    return event;
+  };
+  const config = {
+    // Own initial and hash pageviews, so SDK history detection cannot double-count.
+    capture_pageview: false,
+    capture_pageleave: false,
+    autocapture: { dom_event_allowlist: ['click'], element_allowlist: ['a', 'button'] },
+    mask_all_text: true,
+    mask_all_element_attributes: true,
+    disable_session_recording: true,
+    session_recording: { maskAllInputs: true, maskTextSelector: '*' },
+    ip: false,
+    before_send: cleanEvent,
+  };
+  // Install safety settings before the unchanged snippet can start the SDK.
+  // Wrapping the stub's assigned init avoids a race with the async loader and
+  // keeps all four supplied initialization values untouched.
+  const ph = window.posthog = window.posthog || [];
+  if (ph.__loaded) ph.set_config(config);
+  else Object.defineProperty(ph, 'init', {
+    configurable: true,
+    set(init) {
+      Object.defineProperty(ph, 'init', {
+        configurable: true, writable: true,
+        value(key, options, name) { return init.call(this, key, { ...options, ...config }, name); },
+      });
+    },
+  });
+  let started = false;
+  const pageview = () => { try { window.posthog.capture('$pageview', { $current_url: safeURL(location.href) }); } catch {} };
+  window.personaAnalytics = {
+    start() {
+      if (started) return;
+      started = true;
+      pageview();
+      addEventListener('hashchange', pageview);
+    },
+    capture(name, properties = {}) {
+      if (!Object.hasOwn(schema, name)) return;
+      const allowed = Object.fromEntries(schema[name].filter(key => Object.hasOwn(properties, key)).map(key => [key, properties[key]]));
+      // SDK loading replaces the snippet stub, so resolve the live instance
+      // on every call instead of retaining the obsolete queue.
+      try { window.posthog.capture(name, allowed); } catch { /* Analytics must not interrupt the test. */ }
+    },
+  };
+  const protectInputs = () => document.querySelectorAll('input, textarea, select, [contenteditable]').forEach(el => el.classList.add('ph-no-capture'));
+  document.addEventListener('DOMContentLoaded', () => {
+    protectInputs();
+    new MutationObserver(protectInputs).observe(document.body, { childList: true, subtree: true });
+  }, { once: true });
+})();
+
+</script>
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="th ih nh sh ah init Lh Nh Ah Oh zh Gu Dh Hh Eh Zh Jh Kh Xh Yh td capture getExtension qh dr rd calculateEventProperties nd register register_once register_for_session unregister unregister_for_session ud Rh od getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync hd identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetGroupPropertiesForFlags setGroupPropertiesForFlags reset dd shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty ad Vh createPersonProfile setInternalOrTestUser ld fh hh opt_in_capturing opt_out_capturing dh has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Uh debug Qu Os getPageViewId captureTraceFeedback captureTraceMetric Ch".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_CxspSNsuUaxy345hVq7YQa6PkbYeTvLHvPkdpWhALHsE', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-05-30',
+        person_profiles: 'identified_only',
+    })
+</script>
+<script>window.personaAnalytics.start();</script>
+<!-- persona-analytics:end -->
+</head><body><a href="ESTJ-A.html">Open report</a><script>let v="A";try{if(location.hash.startsWith("#result=")){const r=JSON.parse(decodeURIComponent(location.hash.slice(8)));if(r.variant==="T")v="T";}}catch{}location.replace("./ESTJ-"+v+".html"+location.hash);</script></body></html>
