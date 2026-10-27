@@ -67,7 +67,7 @@ body.homepage-active {
   text-shadow: 0 2px 22px #fff5;
 }
 .homepage-active .q-hm .hero__text p {
-  color: #4e395d;
+  color: #382441;
   font-size: clamp(18px, 1.6vw, 22px);
   line-height: 1.65;
   margin-inline: auto;
