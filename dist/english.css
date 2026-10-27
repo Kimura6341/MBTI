@@ -18,18 +18,17 @@ body>.site-header .brand{font:800 16px/1.5 Arial,sans-serif;letter-spacing:2px;c
 body>.site-header .mark{width:25px;height:25px;flex:0 0 25px}
 @media(max-width:767px){body>.site-header{height:72px;padding:0 18px}body>.site-header .brand{font-size:11px;letter-spacing:1px}}
 
-/* English homepage restyle. Every override is gated by the existing route class.
-   Kept in this stylesheet so the existing offline builder inlines it unchanged. */
+/* English homepage only. The offline builder embeds this stylesheet locally. */
 body.homepage-active {
   --home-purple: #88649c;
   --home-ink: #473451;
-  --home-pale: #f5eff8;
   color: var(--home-ink);
   background: #fffcff;
 }
 .homepage-active > .site-header {
-  background: #fcf8ff;
-  border-bottom: 1px solid #e9dced;
+  height: 72px;
+  background: #f8f1fc;
+  border-bottom: 1px solid #e8dced;
 }
 .homepage-active > .site-header .brand { color: #543d64; }
 .homepage-active > .site-header .mark {
@@ -39,70 +38,89 @@ body.homepage-active {
 .homepage-active .q-hm :is(h1, h2, .metric__value) {
   font-family: 'Nunito', 'Avenir Next Rounded', 'Arial Rounded MT Bold', 'Red Hat Display', system-ui, sans-serif;
   font-weight: 800;
-  letter-spacing: -.035em;
+  letter-spacing: -.01em;
   color: var(--home-ink);
 }
+/* One continuous sky behind both the headline and the existing transparent art. */
 .homepage-active .q-hm .hero {
   position: relative;
   isolation: isolate;
-  background: radial-gradient(ellipse at 85% 12%, #ffe6bc88, transparent 35%),
-    radial-gradient(circle at 12% 18%, #fff8 0 1px, transparent 2px),
-    radial-gradient(circle at 80% 28%, #fff9 0 1px, transparent 2px),
-    radial-gradient(circle at 28% 8%, #fff9 0 2px, transparent 3px),
-    linear-gradient(165deg, #ad8bc5 0%, #d2b3db 45%, #f6d7e2 100%);
+  min-height: 660px;
+  background:
+    radial-gradient(ellipse at 82% 15%, #ffe9bc88, transparent 38%),
+    radial-gradient(circle at 9% 18%, #fff9 0 1px, transparent 2px),
+    radial-gradient(circle at 87% 28%, #fff9 0 1px, transparent 2px),
+    radial-gradient(circle at 22% 10%, #fffc 0 2px, transparent 3px),
+    linear-gradient(180deg, #c3a8d6 0%, #e6cee5 44%, #f5e6ed 72%, #fffcff 100%);
 }
+.homepage-active .q-hm .hero__shape {
+  position: absolute;
+  inset: 0 0 auto;
+  background: transparent !important;
+  height: 18px !important;
+}
+.homepage-active .q-hm .hero__shape path { fill: #f8f1fc !important; }
 .homepage-active .q-hm .hero__text {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   background: transparent !important;
-  padding-block: clamp(48px, 6vw, 96px) 84px !important;
+  padding: 38px 24px 0 !important;
   text-align: center;
 }
 .homepage-active .q-hm .hero__text h1 {
-  font-size: clamp(38px, 4.8vw, 72px);
+  font-size: clamp(42px, 4.3vw, 64px) !important;
   line-height: 1.12;
-  max-width: 1100px !important;
+  letter-spacing: -.01em !important;
+  max-width: 940px !important;
   text-wrap: balance;
-  margin-inline: auto;
-  text-shadow: 0 2px 22px #fff5;
+  margin: 0 auto 16px !important;
 }
 .homepage-active .q-hm .hero__text p {
   color: #382441;
-  font-size: clamp(18px, 1.6vw, 22px);
-  line-height: 1.65;
-  margin-inline: auto;
-  text-wrap: pretty;
+  font-size: 20px;
+  line-height: 1.55;
+  max-width: 610px !important;
+  margin: 0 auto 22px !important;
 }
-/* Empty CSS layers are decorative and never intercept existing links or art. */
+.homepage-active .q-hm .scene-art {
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0;
+  margin: 0 !important;
+  background: transparent !important;
+}
+.homepage-active .q-hm .scene-art :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* The ridges fade into the existing snow mountains, rather than ending at a band. */
 .homepage-active .q-hm .hero::before,
 .homepage-active .q-hm .hero::after {
   content: '';
   position: absolute;
-  z-index: 0;
-  inset: auto 0 -1px;
-  height: clamp(90px, 13vw, 190px);
+  z-index: 1;
+  inset: auto -2% 42px;
+  height: 310px;
   pointer-events: none;
+  mask-image: linear-gradient(#000 32%, #0009 62%, transparent 100%);
 }
 .homepage-active .q-hm .hero::before {
-  background: linear-gradient(135deg, #aa8abc, #c9aed4 65%, #b39bc6);
-  clip-path: polygon(0 44%, 12% 8%, 24% 60%, 40% 22%, 58% 75%, 76% 0, 89% 42%, 100% 18%, 100% 100%, 0 100%);
+  background: linear-gradient(130deg, #b09ac4, #d4c3df 62%, #a6a8c8);
+  clip-path: polygon(0 62%, 9% 24%, 21% 65%, 34% 32%, 48% 72%, 66% 8%, 81% 61%, 94% 23%, 100% 43%, 100% 100%, 0 100%);
 }
 .homepage-active .q-hm .hero::after {
-  height: clamp(55px, 8vw, 120px);
-  background: linear-gradient(120deg, #9375a8, #d3b7d9);
-  clip-path: polygon(0 66%, 17% 22%, 32% 72%, 49% 6%, 66% 82%, 83% 36%, 100% 70%, 100% 100%, 0 100%);
+  bottom: 22px;
+  height: 240px;
+  background: linear-gradient(100deg, #9487b4, #bcc4d6);
+  clip-path: polygon(0 63%, 14% 32%, 27% 74%, 42% 39%, 59% 79%, 76% 30%, 91% 70%, 100% 47%, 100% 100%, 0 100%);
 }
-.homepage-active .q-hm .hero__shape {
-  background: transparent !important;
-}
-.homepage-active .q-hm .hero__shape path { fill: #fcf8ff !important; }
-.homepage-active .q-hm .hero + div { background: #f6d7e2 !important; }
 .homepage-active .q-hm .persona-home-button {
   background: #88649c !important;
   border-color: #88649c !important;
   color: #fff !important;
-  border-radius: 22px !important;
-  box-shadow: 0 6px 0 #61457522, 0 12px 26px #61457529;
+  border-radius: 20px !important;
+  box-shadow: 0 5px 0 #61457518, 0 10px 24px #61457525;
   font-weight: 700;
   transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
 }
@@ -110,26 +128,68 @@ body.homepage-active {
   outline: 3px solid #543468;
   outline-offset: 5px;
 }
+.homepage-active .q-hm .scene-metrics {
+  position: relative;
+  z-index: 4;
+  margin-top: -16px;
+  padding: 0 0 70px !important;
+  background: transparent !important;
+}
+.homepage-active .q-hm #metrics {
+  max-width: 1180px;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+}
 .homepage-active .q-hm .metric {
-  background: #f5eff8 !important;
+  background: #f8f3fc !important;
   border: 1px solid #e9dfef;
   border-radius: 22px !important;
-  box-shadow: 0 8px 26px #6544770c;
+  box-shadow: 0 14px 32px #65447714;
+  padding: 24px 14px !important;
 }
 .homepage-active .q-hm .metric:nth-child(2) { background: #fff8e6 !important; }
 .homepage-active .q-hm .metric:nth-child(3) { background: #edf8f2 !important; }
 .homepage-active .q-hm .metric > div { background: #88649c !important; }
 .homepage-active .q-hm .metric:nth-child(2) > div { background: #e5c46d !important; }
 .homepage-active .q-hm .metric:nth-child(3) > div { background: #92bfa8 !important; }
-.homepage-active .q-hm .metric__value { font-size: clamp(30px, 3.5vw, 52px); }
-.homepage-active .q-hm .metric__label { color: #5d5065; }
+.homepage-active .q-hm .metric__value { font-size: clamp(32px, 3.1vw, 46px); line-height: 1.2; }
+.homepage-active .q-hm .metric__label { color: #5d5065; font-size: 14px; line-height: 1.5; }
+/* Alternating, generous editorial layouts keep the two existing stories distinct. */
+.homepage-active .q-hm .resource > .sp-wrap {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: 80px;
+  max-width: 1180px;
+  margin-block: 0 !important;
+  padding-block: 76px;
+}
 .homepage-active .q-hm #understand-others { background: #f5eff8 !important; }
-.homepage-active .q-hm #understand-others > svg { background: #fffcff !important; }
+.homepage-active .q-hm #understand-others > svg {
+  background: #fffcff !important;
+  height: 38px !important;
+  margin: 0 !important;
+}
 .homepage-active .q-hm #understand-others > svg path { fill: #f5eff8 !important; }
+.homepage-active .q-hm #understand-others .flex-center { grid-column: 2; grid-row: 1; }
+.homepage-active .q-hm #understand-others .flex-center + div { grid-column: 1; grid-row: 1; }
 .homepage-active .q-hm #understand-your-team { background: #fffcff; }
-.homepage-active .q-hm .resource .flex-center { background: #e9ddef !important; }
+.homepage-active .q-hm #understand-your-team > .sp-wrap { padding-block: 100px 110px; }
+.homepage-active .q-hm .resource .flex-center {
+  width: 100% !important;
+  height: 340px !important;
+  margin: 0 !important;
+  padding: 24px !important;
+  background: linear-gradient(135deg, #e4d5ed, #ede9f4) !important;
+  clip-path: polygon(0 17%, 69% 0, 100% 24%, 95% 88%, 30% 100%, 3% 80%) !important;
+}
+.homepage-active .q-hm #understand-your-team .flex-center {
+  background: linear-gradient(135deg, #e4f1e9, #e9ddf0) !important;
+  clip-path: polygon(6% 16%, 36% 0, 100% 14%, 97% 78%, 24% 100%, 0 74%) !important;
+}
+.homepage-active .q-hm .resource .flex-center img { width: 100% !important; max-height: 290px; object-fit: contain; }
 .homepage-active .q-hm .resource .section__title {
-  font-size: clamp(30px, 3.3vw, 48px);
+  font-size: clamp(32px, 3.1vw, 46px);
   line-height: 1.16;
   text-wrap: balance;
 }
@@ -139,26 +199,70 @@ body.homepage-active {
   background: #e9ddef;
   color: #644276;
   border-radius: 20px;
+  padding: 7px 14px;
 }
-.homepage-active .q-hm #go { background: #f0e7f5 !important; }
-.homepage-active .q-hm #go .cta__shape--top { background: #fffcff !important; }
-.homepage-active .q-hm #go .cta__shape--top path:first-child { fill: #d9c7e3 !important; }
-.homepage-active .q-hm #go .cta__shape--top path:last-child { fill: #f0e7f5 !important; }
-.homepage-active .q-hm #go .cta__shape--bottom path { fill: #fffcff !important; }
-.homepage-active .q-hm .persona-type-section,
-.homepage-active .q-hm .persona-type-shape { background: #f5eff8; }
-.homepage-active .q-hm .type-card {
-  border-radius: 24px;
-  border: 1px solid #e7dced;
-  box-shadow: 0 8px 24px #67477812;
+/* Dusk echoes the opening landscape using CSS silhouettes and existing park art. */
+.homepage-active .q-hm #go {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 40px;
+  isolation: isolate;
+  padding: 100px max(32px, calc((100% - 1180px) / 2)) 110px;
+  margin: 0 !important;
+  background:
+    radial-gradient(circle at 88% 16%, #ffe8afbb 0 3px, transparent 4px),
+    radial-gradient(circle at 72% 26%, #fff9 0 1px, transparent 2px),
+    radial-gradient(circle at 42% 17%, #fff9 0 2px, transparent 3px),
+    radial-gradient(ellipse at 10% 20%, #d8a5b755, transparent 50%),
+    linear-gradient(155deg, #88649c, #5d426f 52%, #372a50) !important;
 }
-.homepage-active .q-hm .type-card > a > span { color: #64556d; }
-.homepage-active .q-hm .variant-links a { color: #765088; }
-.homepage-active .q-hm .persona-carousel-controls button {
-  color: #765088;
-  border-color: #d9c8e2;
-  box-shadow: 0 4px 12px #67477812;
+.homepage-active .q-hm #go::before,
+.homepage-active .q-hm #go::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: auto 0 0;
+  height: 80%;
+  background: #503a67;
+  clip-path: polygon(0 53%, 14% 18%, 31% 65%, 47% 36%, 64% 74%, 82% 13%, 100% 60%, 100% 100%, 0 100%);
+  pointer-events: none;
 }
+.homepage-active .q-hm #go::after {
+  height: 48%;
+  background: #372a50;
+  clip-path: polygon(0 43%, 20% 77%, 38% 22%, 57% 62%, 76% 43%, 100% 81%, 100% 100%, 0 100%);
+}
+.homepage-active .q-hm #go > picture {
+  width: 100% !important;
+  margin: 0 !important;
+  grid-column: 1;
+  grid-row: 1;
+  filter: drop-shadow(0 20px 25px #27183533);
+}
+.homepage-active .q-hm #go > picture img { padding: 0 !important; }
+.homepage-active .q-hm #go > .sp-wrap {
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  text-align: left !important;
+  grid-column: 2;
+  grid-row: 1;
+}
+.homepage-active .q-hm #go h2 {
+  color: #fff8ff;
+  font-size: clamp(32px, 3.1vw, 46px);
+  line-height: 1.18;
+  text-align: left !important;
+  margin: 0 0 28px !important;
+}
+.homepage-active .q-hm #go .persona-home-button { margin: 0 !important; }
+.homepage-active .q-hm #go .cta__shape { position: absolute; inset-inline: 0; margin: 0 !important; }
+.homepage-active .q-hm #go .cta__shape--top { top: -1px; height: 36px !important; background: #fffcff !important; }
+.homepage-active .q-hm #go .cta__shape--top path:first-child { fill: #b195bd !important; }
+.homepage-active .q-hm #go .cta__shape--top path:last-child { fill: #88649c !important; }
+.homepage-active .q-hm #go .cta__shape--bottom { bottom: -1px; height: 32px !important; }
+.homepage-active .q-hm #go .cta__shape--bottom path { fill: #fcf8ff !important; }
 .homepage-active .q-hm img { transition: transform .25s ease; }
 .homepage-active > footer { color: #64556d; background: #fcf8ff; border-color: #e9dced; }
 @media (hover: hover) {
@@ -168,30 +272,51 @@ body.homepage-active {
     transform: translateY(-3px);
     box-shadow: 0 10px 28px #61457540;
   }
-  .homepage-active .q-hm :is(picture, .flex-center, .type-card):hover img { transform: translateY(-5px); }
+  .homepage-active .q-hm :is(picture, .flex-center):hover img { transform: translateY(-5px); }
+}
+@media (min-width: 1700px) {
+  .homepage-active .q-hm .hero { min-height: 740px; }
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  .homepage-active .q-hm .hero { min-height: 590px; }
+  .homepage-active .q-hm .resource > .sp-wrap { gap: 36px; padding-inline: 32px; }
+  .homepage-active .q-hm .resource .flex-center { height: 270px !important; }
+  .homepage-active .q-hm #go { gap: 24px; padding-inline: 32px; }
 }
 @media (max-width: 767px) {
-  .homepage-active .q-hm .hero__text { padding-inline: 22px !important; }
-  .homepage-active .q-hm .hero__text h1 { font-size: clamp(36px, 8vw, 54px); }
-  .homepage-active .q-hm .sp-wrap { max-width: 100%; }
-  .homepage-active .q-hm .metric { padding-inline: 12px !important; }
-  .homepage-active .q-hm .metric__label { font-size: 13px; line-height: 1.5; }
-}
-/* Progressive CSS-only parallax: no routing, listeners, or offline dependencies. */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .homepage-active .q-hm .hero::before {
-      animation: home-mountain-drift linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0px 650px;
-    }
+  .homepage-active > .site-header { height: 64px; }
+  .homepage-active .q-hm .hero { min-height: 650px; }
+  .homepage-active .q-hm .hero__text { padding: 34px 22px 0 !important; }
+  .homepage-active .q-hm .hero__text h1 { font-size: clamp(34px, 9vw, 46px) !important; margin-bottom: 18px !important; }
+  .homepage-active .q-hm .hero__text p { font-size: 18px; margin-bottom: 24px !important; }
+  .homepage-active .q-hm .scene-art { bottom: 16px; }
+  .homepage-active .q-hm .hero::before { bottom: 52px; height: 260px; }
+  .homepage-active .q-hm .hero::after { bottom: 22px; height: 210px; }
+  .homepage-active .q-hm .scene-metrics { margin-top: -8px; padding-bottom: 38px !important; }
+  .homepage-active .q-hm #metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; padding-inline: 18px; }
+  .homepage-active .q-hm .metric { padding: 20px 12px !important; border-radius: 18px !important; }
+  .homepage-active .q-hm .metric__value { font-size: 32px; }
+  .homepage-active .q-hm .metric__label { font-size: 12px; }
+  .homepage-active .q-hm .resource > .sp-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding: 40px 24px 48px;
   }
+  .homepage-active .q-hm #understand-others .flex-center,
+  .homepage-active .q-hm #understand-others .flex-center + div { grid-column: auto; grid-row: auto; }
+  .homepage-active .q-hm .resource .flex-center { height: 250px !important; }
+  .homepage-active .q-hm #understand-your-team > .sp-wrap { padding-block: 48px 64px; }
+  .homepage-active .q-hm .resource .section__title { font-size: 34px; }
+  .homepage-active .q-hm #go { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 72px 24px 80px; }
+  .homepage-active .q-hm #go > picture,
+  .homepage-active .q-hm #go > .sp-wrap { grid-column: auto; grid-row: auto; }
+  .homepage-active .q-hm #go h2 { font-size: 34px; text-align: center !important; }
+  .homepage-active .q-hm #go > .sp-wrap { text-align: center !important; }
+  .homepage-active > footer { padding: 24px 18px; gap: 12px; flex-wrap: wrap; }
 }
-@keyframes home-mountain-drift { to { transform: translateY(26px); } }
 @media (prefers-reduced-motion: reduce) {
   .homepage-active .q-hm img,
   .homepage-active .q-hm .persona-home-button { transition: none; }
-  .homepage-active .q-hm .hero::before { animation: none; }
-  .homepage-active .q-hm :is(picture, .flex-center, .type-card):hover img,
+  .homepage-active .q-hm :is(picture, .flex-center):hover img,
   .homepage-active .q-hm .persona-home-button:hover { transform: none; }
 }
