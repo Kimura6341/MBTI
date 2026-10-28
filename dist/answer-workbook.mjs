@@ -1,4 +1,4 @@
-import {englishQuestions,calculateEnglish} from './english-model.mjs?v=f351344ebc7f';
+import {englishQuestions,calculateEnglish} from './english-model.mjs?v=a18e56efeee5';
 
 export const answerRecordKey='persona-english-answer-record-v1';
 export function answerExportUrl(data,base='https://kimura6341.github.io/MBTI/'){

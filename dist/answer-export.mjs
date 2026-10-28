@@ -1,4 +1,4 @@
-import {readAnswerExport,createAnswerWorkbook} from './answer-workbook.mjs?v=35d196784845';
+import {readAnswerExport,createAnswerWorkbook} from './answer-workbook.mjs?v=5f950031d244';
 const status=document.querySelector('#status'),download=document.querySelector('#download');
 let objectUrl;
 try{

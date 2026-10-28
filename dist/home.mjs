@@ -1,4 +1,4 @@
-import {homeAssets} from './home-assets.mjs?v=64aedcf9fcd3';
+import {homeAssets} from './home-assets.mjs?v=991eddc98e9a';
 
 export function homeHeader(){return `<a class="home-logo brand" href="./" aria-label="人格光谱首页"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>人格光谱<small>PERSONA SPECTRUM</small></span></a><div class="home-utilities"><button data-action="language" aria-label="語言設定"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 4 2 5-4 3 3 3 1 5m6-16-2 5 5 3-1 4-4 4"/></svg></button><button data-action="my-report">你的進度</button></div>`;}
 

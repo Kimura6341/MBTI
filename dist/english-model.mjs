@@ -1,4 +1,4 @@
-import {englishQuestions} from './english-questions.mjs?v=dbd8e6d7664d';
+import {englishQuestions} from './english-questions.mjs?v=69f6800eccc7';
 export {englishQuestions};
 export const axisDefinitions=[['E/I','Energy','Extraverted','Introverted'],['N/S','Mind','Intuitive','Observant'],['T/F','Nature','Thinking','Feeling'],['J/P','Tactics','Judging','Prospecting'],['A/T','Identity','Assertive','Turbulent']];
 export function calculateEnglish(answers){

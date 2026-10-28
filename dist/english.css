@@ -17,3 +17,345 @@ body>.site-header{height:80px;padding:0 30px;border:0;background:#fff;display:fl
 body>.site-header .brand{font:800 16px/1.5 Arial,sans-serif;letter-spacing:2px;color:#343c48;text-decoration:none;display:flex;align-items:center;gap:12px;padding:0;margin:0;background:none;border-radius:0}
 body>.site-header .mark{width:25px;height:25px;flex:0 0 25px}
 @media(max-width:767px){body>.site-header{height:72px;padding:0 18px}body>.site-header .brand{font-size:11px;letter-spacing:1px}}
+
+/* ---------------------------------------------------------------------------
+   English homepage visual style. Scoped to body.homepage-active so the test,
+   results and report pages keep their own styles. The offline builder embeds
+   this stylesheet, and every illustration is inline, so nothing loads remotely.
+   --------------------------------------------------------------------------- */
+body.homepage-active {
+  --home-purple: #88649c;
+  --home-purple-deep: #6b497f;
+  --home-ink: #3f2b4d;
+  --home-muted: #5d5066;
+  --home-page: #fbf8fc;
+  color: var(--home-ink);
+  background: var(--home-page);
+}
+
+/* Header melts into the top of the dusk sky. */
+.homepage-active > .site-header {
+  height: 72px;
+  background: #a98dc4;
+  border-bottom: 0;
+}
+.homepage-active > .site-header .brand { color: #2e1f3d; }
+.homepage-active > .site-header .mark {
+  background: conic-gradient(#88649c 25%, #b998ca 0 50%, #f2d68b 0 75%, #b9e0ce 0);
+}
+
+.homepage-active .q-hm { color: var(--home-ink); }
+.homepage-active .q-hm :is(h1, h2, .metric__value) {
+  font-family: 'Nunito', 'Avenir Next Rounded', 'Arial Rounded MT Bold', 'Red Hat Display', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--home-ink);
+}
+
+/* Buttons. */
+.homepage-active .q-hm .persona-home-button {
+  background: var(--home-purple-deep) !important;
+  border-color: var(--home-purple-deep) !important;
+  color: #fff !important;
+  border-radius: 20px !important;
+  box-shadow: 0 6px 20px #442a5b33;
+  font-weight: 700;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.homepage-active .q-hm :is(a, button):focus-visible {
+  outline: 3px solid #3f2b4d;
+  outline-offset: 5px;
+}
+
+/* ---- Hero: dusk valley, five friends on the lookout ---------------------- */
+.homepage-active .q-hm .hero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(760px, 60vw, 1040px);
+  background: linear-gradient(#a98dc4 0 70%, var(--home-page));
+}
+.homepage-active .q-hm .hero::before,
+.homepage-active .q-hm .hero::after { content: none; }
+.homepage-active .q-hm .hero__text {
+  position: relative;
+  z-index: 2;
+  background: transparent !important;
+  padding: 44px 24px 0 !important;
+  text-align: center;
+}
+.homepage-active .q-hm .hero__text h1 {
+  color: #2e1f3d;
+  font-size: clamp(42px, 4.4vw, 66px) !important;
+  line-height: 1.1;
+  max-width: 940px !important;
+  margin: 0 auto 16px !important;
+  text-wrap: balance;
+}
+.homepage-active .q-hm .hero__text p {
+  color: #2e1f3d;
+  font-size: 20px;
+  line-height: 1.55;
+  max-width: 620px !important;
+  margin: 0 auto 24px !important;
+}
+.homepage-active .q-hm .scene-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0 !important;
+  overflow: hidden;
+  pointer-events: none;
+}
+.homepage-active .q-hm .ps-hero-scene { display: block; width: 100%; height: 100%; }
+
+/* Metric cards float on the soft fade at the bottom of the hero. */
+.homepage-active .q-hm .scene-metrics {
+  position: relative;
+  z-index: 3;
+  margin-top: -118px;
+  padding: 0 0 72px !important;
+  background: transparent !important;
+}
+.homepage-active .q-hm #metrics {
+  max-width: 1180px;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+}
+.homepage-active .q-hm .metric {
+  background: #fbf6fd !important;
+  border: 1px solid #ebe1f0;
+  border-radius: 22px !important;
+  box-shadow: 0 16px 34px #5e3f7114;
+  padding: 24px 14px !important;
+}
+.homepage-active .q-hm .metric:nth-child(2) { background: #fff8e8 !important; }
+.homepage-active .q-hm .metric:nth-child(3) { background: #effaf4 !important; }
+.homepage-active .q-hm .metric > div { background: var(--home-purple) !important; }
+.homepage-active .q-hm .metric:nth-child(2) > div { background: #e5c46d !important; }
+.homepage-active .q-hm .metric:nth-child(3) > div { background: #92bfa8 !important; }
+.homepage-active .q-hm .metric__value { font-size: clamp(32px, 3.1vw, 46px); line-height: 1.2; }
+.homepage-active .q-hm .metric__label { color: var(--home-muted); font-size: 14px; line-height: 1.5; }
+
+/* ---- Two stories, alternating, each scene in a small dusk frame ----------- */
+.homepage-active .q-hm .resource > .sp-wrap {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: 80px;
+  max-width: 1180px;
+  margin-block: 0 !important;
+  padding-block: 76px;
+}
+.homepage-active .q-hm #understand-others { background: #f4eef8 !important; }
+.homepage-active .q-hm #understand-others > svg {
+  background: var(--home-page) !important;
+  height: 38px !important;
+  margin: 0 !important;
+}
+.homepage-active .q-hm #understand-others > svg path { fill: #f4eef8 !important; }
+.homepage-active .q-hm #understand-others .flex-center { grid-column: 2; grid-row: 1; }
+.homepage-active .q-hm #understand-others .flex-center + div { grid-column: 1; grid-row: 1; }
+.homepage-active .q-hm #understand-your-team { background: var(--home-page); }
+.homepage-active .q-hm #understand-your-team > .sp-wrap { padding-block: 100px 110px; }
+.homepage-active .q-hm .resource .flex-center {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100% !important;
+  height: 370px !important;
+  margin: 0 !important;
+  padding: 46px 20px 20px !important;
+  border-radius: 30px 30px 60px 30px;
+  background: #d4bddb !important;
+  box-shadow: 0 20px 40px #61457517;
+}
+.homepage-active .q-hm #understand-your-team .flex-center {
+  background: #eab6c1 !important;
+  border-radius: 60px 30px 30px 30px;
+}
+.homepage-active .q-hm .alto-frame-scene {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.homepage-active .q-hm .resource .flex-center img {
+  position: relative;
+  width: 100% !important;
+  max-height: 290px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 12px #36214733);
+  transition: transform .25s ease;
+}
+.homepage-active .q-hm .resource .section__title {
+  font-size: clamp(32px, 3.1vw, 46px);
+  line-height: 1.16;
+  text-wrap: balance;
+}
+.homepage-active .q-hm .resource p { color: var(--home-muted); line-height: 1.75; }
+.homepage-active .q-hm .link--inline { color: #6f4a83; }
+.homepage-active .q-hm .persona-home-badge {
+  background: #e9ddef;
+  color: #5e3f70;
+  border-radius: 20px;
+  padding: 7px 14px;
+}
+
+/* ---- Closing call to action: a daytime neighbourhood around the park ------ */
+.homepage-active .q-hm #go {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  min-height: clamp(720px, 66vw, 1100px);
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  background: #f3ecf6 !important;
+}
+.homepage-active .q-hm #go::before,
+.homepage-active .q-hm #go::after { content: none; }
+.homepage-active .q-hm .ps-hood-scene {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+/* The park art is drawn inside the backdrop so it lines up with the streets at
+   every width; the original picture stays in the page for its description. */
+.homepage-active .q-hm #go > picture {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.homepage-active .q-hm #go > .sp-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(56px, 5vw, 84px) 24px 0 !important;
+  text-align: center !important;
+}
+.homepage-active .q-hm #go h2 {
+  color: var(--home-ink);
+  font-size: clamp(32px, 3vw, 46px);
+  line-height: 1.18;
+  text-align: center !important;
+  margin: 0 0 26px !important;
+  text-wrap: balance;
+}
+.homepage-active .q-hm #go .persona-home-button { margin: 0 !important; }
+.homepage-active .q-hm #go .cta__shape { display: none; }
+
+.homepage-active > footer { color: #64556d; background: var(--home-page); border-color: #e9dced; }
+
+/* ---- Motion -------------------------------------------------------------- */
+@media (hover: hover) {
+  .homepage-active .q-hm .persona-home-button:hover {
+    background: #5b3d6e !important;
+    border-color: #5b3d6e !important;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px #442a5b44;
+  }
+  .homepage-active .q-hm .resource .flex-center:hover img { transform: translateY(-5px); }
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .homepage-active .q-hm .ps-layer {
+      animation: ps-drift linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 700px;
+    }
+    .homepage-active .q-hm .ps-layer--1 { --ps-drift: 70px; }
+    .homepage-active .q-hm .ps-layer--2 { --ps-drift: 50px; }
+    .homepage-active .q-hm .ps-layer--3 { --ps-drift: 32px; }
+    .homepage-active .q-hm .ps-layer--4 { --ps-drift: 16px; }
+  }
+}
+@keyframes ps-drift { to { transform: translateY(var(--ps-drift, 0px)); } }
+
+/* ---- Tablet -------------------------------------------------------------- */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .homepage-active .q-hm .hero { min-height: 680px; }
+  .homepage-active .q-hm .resource > .sp-wrap { gap: 36px; padding-inline: 32px; }
+  .homepage-active .q-hm .resource .flex-center { height: 300px !important; }
+}
+
+/* ---- Phone --------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .homepage-active > .site-header { height: 64px; }
+  /* Taller as the screen widens, so the growing art stays below the button. */
+  .homepage-active .q-hm .hero { min-height: max(660px, calc(390px + 62vw)); }
+  .homepage-active .q-hm .hero__text { padding: 28px 22px 0 !important; }
+  .homepage-active .q-hm .hero__text h1 { font-size: clamp(34px, 9vw, 44px) !important; margin-bottom: 14px !important; }
+  .homepage-active .q-hm .hero__text p { font-size: 17px; line-height: 1.6; margin-bottom: 22px !important; }
+  /* Show the lookout group at a readable size; the sun sits just off-frame. */
+  .homepage-active .q-hm .ps-hero-scene {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    /* Grows with the screen so it always reaches both edges; the group stays centred
+       (it sits at 29.4% of the art's width). */
+    width: max(936px, 175vw);
+    height: auto;
+    aspect-ratio: 1440 / 800;
+    margin-left: calc(max(936px, 175vw) * -0.294);
+  }
+  /* Bring the setting sun and its reflection into the narrow frame. */
+  .homepage-active .q-hm .ps-sun, .homepage-active .q-hm .ps-glow { transform: translateX(-470px); }
+  .homepage-active .q-hm .ps-birds { transform: translate(-330px, 40px); }
+  .homepage-active .q-hm .ps-hero-scene--noop {
+  }
+  .homepage-active .q-hm .scene-metrics { margin-top: -96px; padding-bottom: 40px !important; }
+  .homepage-active .q-hm #metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; padding-inline: 18px; }
+  .homepage-active .q-hm .metric { padding: 20px 12px !important; border-radius: 18px !important; }
+  .homepage-active .q-hm .metric__value { font-size: 32px; }
+  .homepage-active .q-hm .metric__label { font-size: 12px; }
+  .homepage-active .q-hm .resource > .sp-wrap { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 40px 24px 48px; }
+  .homepage-active .q-hm #understand-others .flex-center,
+  .homepage-active .q-hm #understand-others .flex-center + div { grid-column: auto; grid-row: auto; }
+  .homepage-active .q-hm .resource .flex-center { height: 280px !important; padding: 40px 14px 16px !important; }
+  .homepage-active .q-hm #understand-your-team > .sp-wrap { padding-block: 48px 64px; }
+  .homepage-active .q-hm .resource .section__title { font-size: 34px; }
+  .homepage-active .q-hm #go { min-height: 720px; }
+  .homepage-active .q-hm #go h2 { font-size: 32px; }
+  .homepage-active > footer { padding: 24px 18px; gap: 12px; flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage-active .q-hm .ps-layer { animation: none; transform: none; }
+  .homepage-active .q-hm .resource .flex-center img,
+  .homepage-active .q-hm .persona-home-button { transition: none; }
+  .homepage-active .q-hm .resource .flex-center:hover img,
+  .homepage-active .q-hm .persona-home-button:hover { transform: none; }
+}
+
+
+/* ---- Smooth hand-off from desktop to phone (≤1100px) ----------------------
+   Instead of switching layouts at one breakpoint, the art's size, the group's
+   position, the sun's position and the hero height all change linearly with the
+   screen width, so 1100px matches the desktop framing and 390px matches the phone
+   framing with every width in between a blend of the two. */
+@media (max-width: 1100px) {
+  .homepage-active .q-hm .hero { min-height: max(660px, calc(605px + 14.1vw)); }
+  .homepage-active .q-hm .ps-hero-scene {
+    position: absolute;
+    bottom: max(0px, calc(43px - 3.9vw));
+    left: calc(-51.5px - 7.36vw);
+    margin: 0;
+    width: calc(702px + 60vw);
+    height: auto;
+    aspect-ratio: 1440 / 800;
+  }
+  .homepage-active .q-hm .ps-sun,
+  .homepage-active .q-hm .ps-glow { transform: translateX(min(0px, calc(66.2vw - 728px))); }
+  .homepage-active .q-hm .ps-birds { transform: translateX(min(0px, calc(46.5vw - 511px))); }
+}
