@@ -359,3 +359,20 @@ body.homepage-active {
   .homepage-active .q-hm .ps-glow { transform: translateX(min(0px, calc(66.2vw - 728px))); }
   .homepage-active .q-hm .ps-birds { transform: translateX(min(0px, calc(46.5vw - 511px))); }
 }
+
+/* Phones: every "Take the test" button is the same full-width size. */
+@media (max-width: 767px) {
+  .homepage-active .q-hm .persona-home-button {
+    display: flex !important;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 342px !important;
+    margin-inline: auto !important;
+  }
+  /* Same 24px side gutters everywhere, so the buttons line up edge to edge. */
+  .homepage-active .q-hm .resource > .sp-wrap { margin-inline: 0 !important; padding-inline: 24px !important; }
+  .homepage-active .q-hm .hero__text { padding-inline: 24px !important; }
+  .homepage-active .q-hm #go > .sp-wrap { padding-inline: 24px !important; }
+  .homepage-active .q-hm #go .persona-home-button { margin-inline: auto !important; }
+}
