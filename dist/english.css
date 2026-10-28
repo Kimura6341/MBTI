@@ -376,3 +376,6 @@ body.homepage-active {
   .homepage-active .q-hm #go > .sp-wrap { padding-inline: 24px !important; }
   .homepage-active .q-hm #go .persona-home-button { margin-inline: auto !important; }
 }
+
+/* The closing section no longer has a button; its heading sits alone in the sky. */
+.homepage-active .q-hm #go h2 { margin-bottom: 0 !important; }
