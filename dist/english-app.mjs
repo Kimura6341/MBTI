@@ -1,6 +1,6 @@
 import {trackEvent,completedTestProperties} from './analytics-events.mjs?v=0ef101c2d544';
 import {englishQuestions,calculateEnglish} from './english-model.mjs?v=a18e56efeee5';
-import {englishHomeMarkup,bindEnglishHome} from './english-home.mjs?v=3f559810efc9';
+import {englishHomeMarkup,bindEnglishHome} from './english-home.mjs?v=635967a5fb29';
 const root=document.querySelector('#app'),key='persona-spectrum-english-60-v2';
 let answers={},page=0;
 let testActive=false;
